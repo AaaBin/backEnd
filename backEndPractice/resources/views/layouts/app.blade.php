@@ -49,9 +49,9 @@
                             </div>
                         </li>
 
-                        
+
                         <li class="nav-item">
-                            <a class="nav-link" href="">最新消息</a>
+                            <a class="nav-link" href="/home/news">最新消息</a>
                         </li>
 
 
