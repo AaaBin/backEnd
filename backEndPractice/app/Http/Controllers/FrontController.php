@@ -25,7 +25,8 @@ class FrontController extends Controller
 
     public function product()
     {
-        return view('front/product');
+        $product_data = DB::table('product')->get();
+        return view('front/product' , compact('product_data'));
     }
 
 
