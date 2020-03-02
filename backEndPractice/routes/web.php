@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('front/index');
-});
+// 將路徑改寫成經過controller
+// FrontController@news  -->> 使用FrontController中的news函式
+Route::get('/', 'FrontController@index');
 
-Route::get('/news', function () {
-    return view('front/news');
-});
+Route::get('/news', 'FrontController@news');
 
 
 Auth::routes();
