@@ -22,4 +22,11 @@ class FrontController extends Controller
         // 然後用compact()將資料傳入頁面中
         return view('front/news' , compact('news_data'));
     }
+
+    public function product()
+    {
+        return view('front/product');
+    }
+
+
 }

@@ -11,7 +11,7 @@
                     <div class="card-wrapper">
                         <div class="card-img">
                             {{-- php語法 --}}
-                            <img src="{{$item->url}}" alt="Mobirise">
+                            <img src="{{$item->url}}" alt="news_img">
                         </div>
                         <div class="card-box">
                             <h4 class="card-title mbr-fonts-style display-7">

@@ -55,6 +55,11 @@
                         NEWS
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/product">
+                        PRODUCT
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

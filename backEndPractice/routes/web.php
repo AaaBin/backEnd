@@ -17,6 +17,8 @@ Route::get('/', 'FrontController@index');  //前端，首頁
 
 Route::get('/news', 'FrontController@news');  //前端，最新消息頁
 
+Route::get('/product', 'FrontController@product');  //前端，產品頁面
+
 
 Auth::routes();
 
@@ -31,11 +33,19 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/news', 'NewsController@index');  //後台，最新消息表單
-
     Route::post('/news/store', 'NewsController@store');   //儲存表單資料
+
+    Route::get('/product', 'ProductController@index');  //後台，產品表單
+    Route::post('/product/store', 'productController@store');   //儲存表單資料
+
+
 });
 
 
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

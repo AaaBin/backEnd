@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Mail;
-use App\Mail\SendMail;
-
 
 class HomeController extends Controller
 {
@@ -27,20 +24,5 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
-    }
-
-
-    
-
-
-    public function sendMail()
-    {
-        $details['to'] = 'birnie1571@gmail.com';
-        $details['name'] = 'AaaBin';
-        $details['subject'] = 'Hello';
-        $details['message'] = 'Here goes all message body.';
-
-        Mail::to($details['to'])
-                ->send(new SendMail($details));
     }
 }

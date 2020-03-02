@@ -45,7 +45,10 @@
                                 </a>
                                 <a class="dropdown-item" href="/news" >
                                     news
-                                 </a>
+                                </a>
+                                <a class="dropdown-item" href="/product" >
+                                    product
+                                </a>
                             </div>
                         </li>
 
@@ -53,7 +56,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/home/news">最新消息</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home/product">產品</a>
+                        </li>
 
                     </ul>
 
