@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Home</title>
+  <title>backend test</title>
   <link rel="stylesheet" href="{{asset('assets/web/assets/mobirise-icons/mobirise-icons.css')}}">
   <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap-grid.min.css')}}">
@@ -43,7 +43,7 @@
             <div class="navbar-brand">
                 <span class="navbar-caption-wrap">
                     <a class="navbar-caption text-white display-4" href="/">
-                        HOME
+                        TEST
                     </a>
                 </span>
             </div>

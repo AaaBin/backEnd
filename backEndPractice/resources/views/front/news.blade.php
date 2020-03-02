@@ -1,7 +1,7 @@
-@extends('layout/nav')
+@extends('layouts/nav')
 @section('content')
 <section class="engine"><a href="https://mobirise.info/x">css templates</a></section><section class="features3 cid-rRF3umTBWU" id="features3-7">
-    <div class="container">
+    <div class="container" style="padding:300px 0 0 0; min-height:100vh">
         <div class="media-container-row">
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper">
@@ -17,7 +17,7 @@
                         </p>
                     </div>
                     <div class="mbr-section-btn text-center">
-                        <a href="https://mobirise.co" class="btn btn-primary display-4">
+                        <a href="" class="btn btn-primary display-4">
                             Learn More
                         </a>
                     </div>
@@ -38,7 +38,7 @@
                         </p>
                     </div>
                     <div class="mbr-section-btn text-center">
-                        <a href="https://mobirise.co" class="btn btn-primary display-4">
+                        <a href="" class="btn btn-primary display-4">
                             Learn More
                         </a>
                     </div>
@@ -59,7 +59,7 @@
                         </p>
                     </div>
                     <div class="mbr-section-btn text-center">
-                        <a href="https://mobirise.co" class="btn btn-primary display-4">
+                        <a href="" class="btn btn-primary display-4">
                             Learn More
                         </a>
                     </div>

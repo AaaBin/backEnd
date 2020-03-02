@@ -1,4 +1,4 @@
-@extends('layout/nav')
+@extends('layouts/nav')
 @section('content')
 
 
@@ -14,11 +14,11 @@
         <div class="row justify-content-md-center">
             <div class="mbr-white col-md-10">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
-                    HOME PAGE
+                    LANDING PAGE
                 </h1>
                 <div class="mbr-section-btn">
-                    <a class="btn btn-md btn-secondary display-4" href="https://mobirise.com">LEARN MORE</a>
-                    <a class="btn btn-md btn-white-outline display-4" href="https://mobirise.com">LIVE DEMO</a>
+                    <a class="btn btn-md btn-secondary display-4" href="/home">LOGIN</a>
+                    <a class="btn btn-md btn-white-outline display-4" href="">XXXX</a>
                 </div>
             </div>
         </div>

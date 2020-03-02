@@ -19,3 +19,7 @@ Route::get('/news', function () {
     return view('front/news');
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
