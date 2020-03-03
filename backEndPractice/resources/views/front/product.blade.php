@@ -19,10 +19,12 @@
               <div>
                   @foreach ($product_data as $item)
                     <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false" data-tags="{{$item->category}}">
-                        <div href="#lb-gallery2-3" data-slide-to="{{$item->id}}" data-toggle="modal">
+
+                        <div href="#lb-gallery2-3" data-slide-to="{{$item->id -1}}" data-toggle="modal">
                             <img src="{{$item->url}}" alt="" title="">
                             <span class="icon-focus"></span>
                         </div>
+
                     </div>
 
                   @endforeach
@@ -41,10 +43,13 @@
             <div class="modal-content">
               <div class="modal-body">
                 <div class="carousel-inner">
-                    @foreach ($product_data as $item)
-                        <div class="carousel-item active"><img src="{{$item->url}}" alt="" title=""></div>
-                        <div class="carousel-item"><img src="{{$item->url}}" alt="" title=""></div>
 
+                    @foreach ($product_data as $item)
+                        @if ($item->id == 1)
+                            <div class="carousel-item active"><img src="{{$item->url}}" alt="" title=""></div>
+                        @else
+                            <div class="carousel-item"><img src="{{$item->url}}" alt="" title=""></div>
+                        @endif
                     @endforeach
 
                 </div>

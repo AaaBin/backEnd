@@ -32,10 +32,27 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
 
-    Route::get('/news', 'NewsController@index');  //後台，最新消息表單
+    Route::get('/news', 'NewsController@index');  //最新消息列表頁
+
+    Route::get('/news/create', 'NewsController@create');  //新增最新消息頁面
     Route::post('/news/store', 'NewsController@store');   //儲存表單資料
 
-    Route::get('/product', 'ProductController@index');  //後台，產品表單
+    Route::get('/news/edit/{id}', 'NewsController@edit');  //修改最新消息頁面
+    Route::post('/news/update/{id}', 'NewsController@update');  //修改最新消息
+
+    Route::get('/news/delete/{id}', 'NewsController@delete');  //刪除最新消息
+
+
+
+
+
+
+
+    Route::get('/product', 'ProductController@index');  //產品表單
+    Route::get('/product/create', 'ProductController@create'); //新增產品
+    Route::get('/product/edit/{id}', 'ProductController@edit');  //修改產品
+    Route::get('/product/delete/{id}', 'ProductController@delete');  //刪除產品
+
     Route::post('/product/store', 'productController@store');   //儲存表單資料
 
 
