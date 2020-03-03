@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        return view('news/news');
+        return view('admin/news/index');
     }
 
     public function store(Request $request)
