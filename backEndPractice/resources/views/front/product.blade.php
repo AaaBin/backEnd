@@ -20,7 +20,7 @@
                   @foreach ($product_data as $item)
                     <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false" data-tags="{{$item->category}}">
 
-                        <div href="#lb-gallery2-3" data-slide-to="{{$item->id -1}}" data-toggle="modal">
+                        <div href="#lb-gallery2-3" data-slide-to="{{$item->id - 1}}" data-toggle="modal">
                             <img src="{{$item->url}}" alt="" title="">
                             <span class="icon-focus"></span>
                         </div>
@@ -44,11 +44,11 @@
               <div class="modal-body">
                 <div class="carousel-inner">
 
-                    @foreach ($product_data as $item)
-                        @if ($item->id == 1)
-                            <div class="carousel-item active"><img src="{{$item->url}}" alt="" title=""></div>
+                    @foreach ($product_data as $key=>$item)
+                        @if ($item->id == 2)
+                            <div id="light{{$key}}" class="carousel-item active"><img src="{{$item->url}}" alt="" title=""></div>
                         @else
-                            <div class="carousel-item"><img src="{{$item->url}}" alt="" title=""></div>
+                            <div id="light{{$key}}" class="carousel-item"><img src="{{$item->url}}" alt="" title=""></div>
                         @endif
                     @endforeach
 
@@ -74,4 +74,12 @@
 
   <section class="engine"><a href="https://mobirise.info/d">free site maker</a></section>
 
+  @endsection
+
+
+  @section('js')
+    <script>
+        // let light_active = document.querySelector('#light0');
+        // light_active.classList.add("active");
+    </script>
   @endsection

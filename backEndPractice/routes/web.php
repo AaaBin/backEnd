@@ -27,7 +27,6 @@ Route::get('/send-mail', 'HomeController@sendMail'); //發郵件測試用
 
 // middleware:中介層  ->代表這路徑要經過認證才可使用
 // prefix:前綴字
-
 Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
@@ -40,20 +39,22 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
     Route::get('/news/edit/{id}', 'NewsController@edit');  //修改最新消息頁面
     Route::post('/news/update/{id}', 'NewsController@update');  //修改最新消息
 
-    Route::get('/news/delete/{id}', 'NewsController@delete');  //刪除最新消息
+    Route::post('/news/delete/{id}', 'NewsController@delete');  //刪除最新消息
 
 
 
 
 
+    Route::get('/product', 'ProductController@index');  //產品列表
 
-
-    Route::get('/product', 'ProductController@index');  //產品表單
     Route::get('/product/create', 'ProductController@create'); //新增產品
-    Route::get('/product/edit/{id}', 'ProductController@edit');  //修改產品
-    Route::get('/product/delete/{id}', 'ProductController@delete');  //刪除產品
-
     Route::post('/product/store', 'productController@store');   //儲存表單資料
+
+    Route::get('/product/edit/{id}', 'ProductController@edit');  //修改產品頁面
+    Route::post('/product/update/{id}', 'ProductController@update');  //修改產品
+    
+    Route::post('/product/delete/{id}', 'ProductController@delete');  //刪除產品
+
 
 
 });

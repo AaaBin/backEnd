@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="container">
-    <a href="/home/product/create"  class="btn btn-success">新增最新消息</a>
+    <a href="/home/product/create"  class="btn btn-success">新增產品</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -24,12 +24,16 @@
             <tbody>
                 <tr>
                     <td>
-                    <img width="100" src="{{$item->url}}" alt="" class="m-auto">
+                        <img width="100" src="{{$item->url}}" alt="" class="m-auto">
                     </td>
                     <td>{{$item->category}}</td>
                     <td >
-                    <a href="/home/product/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
-                        <a href="/home/product/delete/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-danger">刪除</a>
+                        <a href="/home/product/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
+                        {{-- 點擊連結→觸發js事件→中斷連結的事件進行，執行指定函式 --}}
+                        <a href="#" class="btn col-12 btn-block btn-sm btn-danger" onclick="event.preventDefault();show_confirm(`{{$item->id}}`)">刪除</a>
+                        <form id="delete_form{{$item->id}}" action="/home/product/delete/{{$item->id}}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </td>
                 </tr>
             </tbody>
@@ -54,5 +58,15 @@
         $(document).ready(function() {
         $('#example').DataTable();
         } );
+    </script>
+
+    <script>
+        // confirm函式，跳出視窗警告使用者正在進行刪除行為，若確認，則送出隱藏的表單，執行刪除
+        function show_confirm(k){
+            let r = confirm("你即將刪除這筆最新消息!");
+            if (r == true){
+                document.querySelector(`#delete_form${k}`).submit();
+            }
+        }
     </script>
 @endsection

@@ -43,7 +43,8 @@ class NewsController extends Controller
 
     public function delete($id)
     {
-        @dd("delete",$id);
+        News::find($id)->delete();
+        return redirect("/home/news");
     }
 
 

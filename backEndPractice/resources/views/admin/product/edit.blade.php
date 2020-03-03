@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="container" >
+<div class="container">
 
-    <form method="POST" action="/home/product/update/{{$product->id}}">
+    <form method="POST" action="/home/product/update/{{$product->id}}" >
         @csrf
         <div class="form-group">
         <label for="url">img address</label>
@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
             <label for="category">category</label>
-            <select multiple class="form-control" id="category" name='category'>
+            <select id="select_dropdown" multiple class="form-control" id="category" name='category' data-category="{{$product->category}}">
                 <option>A</option>
                 <option>B</option>
                 <option>C</option>
@@ -34,11 +34,13 @@
 @section('js')
     <script>
         let dropdown = document.querySelectorAll("option");
-        dropdown.forEach(function(i) {
-            console.log(i.innerHTML);
-            let dropdownValue = i.innerHTML;
-            if(dropdownValue == ){
-                console.log("123");
+        let judge_value = document.querySelector("#select_dropdown").getAttribute("data-category");
+
+        dropdown.forEach(function(e,i) {
+            console.log(e.innerHTML);
+            let categoryValue = e.innerHTML;
+            if(categoryValue == judge_value){
+                dropdown[i].setAttribute("selected","");
             }
         });
 
