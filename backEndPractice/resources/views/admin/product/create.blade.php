@@ -3,7 +3,8 @@
 @section('content')
 
 <div class="container">
-
+    <h1>新增產品</h1>
+    <small>預設權重為0，若須修改請於新增完成後再修改</small>
     <form method="POST" action="/home/product/store">
         @csrf
         <div class="form-group">

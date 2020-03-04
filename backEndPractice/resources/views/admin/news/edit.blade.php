@@ -21,6 +21,12 @@
             <label for="content">Content</label>
             <textarea  class="form-control" name="content" id="content" cols="30" rows="10">{{$news->content}}</textarea>
         </div>
+        <div class="form-group">
+            <label for="sort">權重</label>
+            <input type="number" min="0" style="width:100px" class="form-control" id="sort" name="sort" value="{{$news->sort}}">
+            <small id="sort_help" class="form-text text-muted">數字越大排序越前，預設值為0</small>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

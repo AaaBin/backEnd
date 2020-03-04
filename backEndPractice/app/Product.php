@@ -9,6 +9,6 @@ class Product extends Model
     protected $table = 'product';
 
     protected $fillable = [
-        'url','category',
+        'url','category','sort'
     ];
 }

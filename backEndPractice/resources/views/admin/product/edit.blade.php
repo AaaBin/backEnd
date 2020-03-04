@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-
+    <h1>編輯產品</h1>
     <form method="POST" action="/home/product/update/{{$product->id}}" >
         @csrf
         <div class="form-group">
@@ -19,6 +19,11 @@
                 <option>D</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="sort">權重</label>
+            <input type="number" min="0" style="width:100px" class="form-control" id="sort" name="sort" value="{{$product->sort}}">
+            <small id="sort_help" class="form-text text-muted">數字越大排序越前，預設值為0</small>
+            </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

@@ -17,16 +17,18 @@
                 <tr>
                     <th>img</th>
                     <th>category</th>
+                    <th>權重</th>
                     <th width='80'></th>
                 </tr>
             </thead>
-        @foreach ($all_product as $item)
             <tbody>
+            @foreach ($all_product as $item)
                 <tr>
                     <td>
                         <img width="100" src="{{$item->url}}" alt="" class="m-auto">
                     </td>
                     <td>{{$item->category}}</td>
+                    <td>{{$item->sort}}</td>
                     <td >
                         <a href="/home/product/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
                         {{-- 點擊連結→觸發js事件→中斷連結的事件進行，執行指定函式 --}}
@@ -36,8 +38,8 @@
                         </form>
                     </td>
                 </tr>
+            @endforeach
             </tbody>
-        @endforeach
 
 
     </table>
@@ -56,7 +58,9 @@
 
     <script >
         $(document).ready(function() {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "order": [[ 2, "desc" ]]
+            });
         } );
     </script>
 
