@@ -4,14 +4,18 @@
 
 <div class="container">
     <h1>編輯最新消息</h1>
-    <form method="POST" action="/home/news/update/{{$news->id}}">
+    <form method="POST" action="/home/news/update/{{$news->id}}"enctype="multipart/form-data" >
         {{-- 傳入的資料為物件型態 --}}
         {{-- {{$news}} --}}
         @csrf
+        <span>
+            舊圖片:
+        <img width="250px" src="/storage/{{$news->url}}" alt="">
+        </span>
         <div class="form-group">
-        <label for="url">img address</label>
+        <label for="url">上傳新圖片</label>
         {{-- 將選擇到的表單內容寫入預設值value --}}
-        <input type="text" class="form-control" id="img" name="url" value="{{$news->url}}">
+        <input type="file" class="form-control" id="url" name="url">
         </div>
         <div class="form-group">
         <label for="title">Title</label>

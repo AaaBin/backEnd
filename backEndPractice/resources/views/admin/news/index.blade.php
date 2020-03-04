@@ -19,20 +19,27 @@
                 <th>title</th>
                 <th>content</th>
                 <th>權重</th>
+                <th width='100'>更改權重順訊</th>
                 <th width='80'></th>
             </tr>
         </thead>
 
         <tbody>
-        @foreach ($all_news as $item)
+        @foreach ($all_news as $key=>$item)
 
             <tr>
                 <td>
-                    <img width="100" src="{{$item->url}}" alt="" class="m-auto">
+                    {{-- 上傳的檔案會以類似連結的形式出現在public/storage內 --}}
+                    <img width="120px" src="/storage/{{$item->url}}" alt="">
                 </td>
                 <td>{{$item->title}}</td>
                 <td>{{$item->content}}</td>
                 <td>{{$item->sort}}</td>
+                <td>
+                    {{$key}}
+                    <a href="/home/news/edit/sort_up/{{$item->id}}" type="button" class="btn btn-outline-info btn-sm col-12 btn-block">Top</a>
+                    <a href="" type="button" class="btn btn-outline-info btn-sm col-12 btn-block">Down</a>
+                </td>
                 <td>
                     <a href="/home/news/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
 
