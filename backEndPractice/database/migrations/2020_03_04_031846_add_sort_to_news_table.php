@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeProduct extends Migration
+class AddSortToNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class ChangeProduct extends Migration
      */
     public function up()
     {
-        Schema::table('product', function ($table) {
-            $table->string('url')->default("https://i.epochtimes.com/assets/uploads/2017/08/Depositphotos_133251802_m-2015-600x400.jpg")->change();
-            $table->string('category')->default("A")->change();
+        Schema::table('news', function (Blueprint $table) {
+            $table->integer('sort')->default(0);
         });
     }
 
@@ -26,6 +25,8 @@ class ChangeProduct extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('news', function (Blueprint $table) {
+            //
+        });
     }
 }

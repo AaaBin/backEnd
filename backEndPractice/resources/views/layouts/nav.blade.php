@@ -45,6 +45,9 @@
                     <a class="navbar-caption text-white display-4" href="/">
                         TEST
                     </a>
+                    <a class="navbar-caption text-white display-4" href="/home" style='font-family:微軟正黑體; font-weight:200'>
+                        後台管理
+                    </a>
                 </span>
             </div>
         </div>
@@ -106,8 +109,8 @@
                 </h5>
                 <p class="mbr-text">
                     <a class="text-primary" href="//">Website builder</a>
-                    <br><a class="text-primary" href="//mobirise-free-win.zip">Download for Windows</a>
-                    <br><a class="text-primary" href="//mobirise-free-mac.zip">Download for Mac</a>
+                    <br><a class="text-primary" href="">Download for Windows</a>
+                    <br><a class="text-primary" href="">Download for Mac</a>
                 </p>
             </div>
         </div>
@@ -126,32 +129,32 @@
                 <div class="col-md-6">
                     <div class="social-list align-right">
                         <div class="soc-item">
-                            <a href="https://twitter.com/mobirise" target="_blank">
+                            <a href="" target="_blank">
                                 <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="https://www.facebook.com/pages/Mobirise/1616226671953247" target="_blank">
+                            <a href="" target="_blank">
                                 <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="https://www.youtube.com/c/mobirise" target="_blank">
+                            <a href="" target="_blank">
                                 <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="https://instagram.com/mobirise" target="_blank">
+                            <a href="" target="_blank">
                                 <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
+                            <a href="" target="_blank">
                                 <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
                             </a>
                         </div>
                         <div class="soc-item">
-                            <a href="https://www.behance.net/Mobirise" target="_blank">
+                            <a href="" target="_blank">
                                 <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
                             </a>
                         </div>
