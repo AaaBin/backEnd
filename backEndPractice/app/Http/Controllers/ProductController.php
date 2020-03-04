@@ -63,5 +63,37 @@ class ProductController extends Controller
         return redirect("/home/product");
     }
 
+    public function sort_up($id)
+    {
+        $item = Product::find($id);
+        $sort_value = $item->sort;
+        $target = Product::where('sort','>',$sort_value)->orderby('sort','asc')->first();
+        if ($target == null) {
+            $item->sort = $sort_value + 1;
+        }else{
+            $target_sort_value = $target->sort;
+            $item->sort = $target_sort_value;
+            $target->sort = $sort_value;
+            $target->update();
+        }
+        $item->update();
+        return redirect('home/product');
+    }
+    public function sort_down($id)
+    {
+        $item = Product::find($id);
+        $sort_value = $item->sort;
+        $target = Product::where('sort','<',$sort_value)->orderby('sort','desc')->first();
+        if ($target == null) {
+            $item->sort = $sort_value - 1;
+        }else{
+            $target_sort_value = $target->sort;
+            $item->sort = $target_sort_value;
+            $target->sort = $sort_value;
+            $target->update();
+        }
+        $item->update();
+        return redirect('home/product');
+    }
 
 }

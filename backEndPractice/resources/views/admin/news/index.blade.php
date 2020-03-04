@@ -25,8 +25,7 @@
         </thead>
 
         <tbody>
-        @foreach ($all_news as $item)
-
+            @foreach ($all_news as $item)
             <tr>
                 <td>
                     {{-- 上傳的檔案會以類似連結的形式出現在public/storage內 --}}
@@ -36,8 +35,12 @@
                 <td>{{$item->content}}</td>
                 <td>{{$item->sort}}</td>
                 <td>
-                    <a href="/home/news/edit/sort_up/{{$item->id}}" type="button" class="btn btn-outline-info btn-sm col-12 btn-block">Top</a>
-                    <a href="" type="button" class="btn btn-outline-info btn-sm col-12 btn-block">Down</a>
+                    <a href="/home/news/edit/sort_up/{{$item->id}}" type="button"
+                        class="btn btn-outline-info btn-sm col-12 btn-block">Up</a>
+                    <a href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="too_small({{$item->sort}},{{$item->id}})">Down</a>
+                    {{-- 隱藏一個link，若sort值大於0則送出 --}}
+                    <a id="sort_down_link{{$item->id}}" href="/home/news/edit/sort_down/{{$item->id}}" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="too_small({{$item->sort}})" style="display: none;"></a>
+
                 </td>
                 <td>
                     <a href="/home/news/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
@@ -51,7 +54,7 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
 
     </table>
@@ -84,5 +87,16 @@
                 document.querySelector(`#delete_form${k}`).submit();
             }
         }
+</script>
+
+<script>
+    function too_small(i,k){
+        if (i < 1) {
+            alert("the min. sort value is 0,cann't be smaller");
+        } else {
+            $target = document.querySelector(`#sort_down_link${k}`);
+            $target.click();
+        }
+    }
 </script>
 @endsection
