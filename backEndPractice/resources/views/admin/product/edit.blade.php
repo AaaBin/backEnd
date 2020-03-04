@@ -4,11 +4,15 @@
 
 <div class="container">
     <h1>編輯產品</h1>
-    <form method="POST" action="/home/product/update/{{$product->id}}" >
+    <form method="POST" action="/home/product/update/{{$product->id}}" enctype="multipart/form-data">
         @csrf
+        <span>
+            舊圖片:
+        <img width="250px" src="/storage/{{$product->url}}" alt="">
+        </span>
         <div class="form-group">
-        <label for="url">img address</label>
-        <input type="text" class="form-control" id="img" name="url" value="{{$product->url}}">
+        <label for="url">upload new img</label>
+        <input type="file" class="form-control" id="url" name="url">
         </div>
         <div class="form-group">
             <label for="category">category</label>

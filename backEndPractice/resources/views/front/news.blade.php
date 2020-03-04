@@ -11,7 +11,7 @@
                     <div class="card-wrapper">
                         <div class="card-img">
                             {{-- php語法 --}}
-                            <img src="{{$item->url}}" alt="news_img">
+                            <img src="/storage/{{$item->url}}" alt="news_img">
                         </div>
                         <div class="card-box">
                             <h4 class="card-title mbr-fonts-style display-7">
@@ -22,7 +22,7 @@
                             </p>
                         </div>
                         <div class="mbr-section-btn text-center">
-                            <a href="" class="btn btn-primary display-4">
+                            <a href="" class="btn btn-primary btn-sm">
                                 Learn More
                             </a>
                         </div>

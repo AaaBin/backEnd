@@ -24,7 +24,7 @@
                             <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false"
                                 data-tags="{{$item->category}}">
                                 <div href="#lb-gallery2-3" data-slide-to="{{$key}}" data-toggle="modal">
-                                    <img src="{{$item->url}}" alt="" title="">
+                                    <img src="/storage/{{$item->url}}" alt="" title="">
                                     <span class="icon-focus"></span>
                                 </div>
                             </div>
@@ -48,11 +48,11 @@
                                 @foreach ($product_data as $key=>$item)
                                     @if ($key == 0)
                                         <div id="light{{$key}}" class="carousel-item active">
-                                            <img src="{{$item->url}}" alt="" title="">
+                                            <img src="/storage/{{$item->url}}" alt="" title="">
                                         </div>
                                     @else
                                         <div id="light{{$key}}" class="carousel-item">
-                                            <img src="{{$item->url}}" alt="" title="">
+                                            <img src="/storage/{{$item->url}}" alt="" title="">
                                         </div>
                                     @endif
                                 @endforeach

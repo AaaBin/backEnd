@@ -25,7 +25,7 @@
             @foreach ($all_product as $item)
                 <tr>
                     <td>
-                        <img width="100" src="{{$item->url}}" alt="" class="m-auto">
+                        <img width="100" src="/storage/{{$item->url}}" alt="" class="m-auto">
                     </td>
                     <td>{{$item->category}}</td>
                     <td>{{$item->sort}}</td>

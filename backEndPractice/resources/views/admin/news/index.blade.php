@@ -19,13 +19,13 @@
                 <th>title</th>
                 <th>content</th>
                 <th>權重</th>
-                <th width='100'>更改權重順訊</th>
+                <th width='100'>權重順訊</th>
                 <th width='80'></th>
             </tr>
         </thead>
 
         <tbody>
-        @foreach ($all_news as $key=>$item)
+        @foreach ($all_news as $item)
 
             <tr>
                 <td>
@@ -36,7 +36,6 @@
                 <td>{{$item->content}}</td>
                 <td>{{$item->sort}}</td>
                 <td>
-                    {{$key}}
                     <a href="/home/news/edit/sort_up/{{$item->id}}" type="button" class="btn btn-outline-info btn-sm col-12 btn-block">Top</a>
                     <a href="" type="button" class="btn btn-outline-info btn-sm col-12 btn-block">Down</a>
                 </td>

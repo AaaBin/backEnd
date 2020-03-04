@@ -22,9 +22,7 @@ class NewsController extends Controller
         $news_data = $request->all();
 
         $file = $request->file("url")->store('','public');
-        // dd($file);
         $news_data['url'] = $file;
-
 
         News::create($news_data)->save();
         return redirect('/home/news');
@@ -40,26 +38,32 @@ class NewsController extends Controller
 
     public function update(Request $request,$id)
     {
-        // $test = $request->all();
-        // @dd("update",$id,$test);
-        // 因csrf的關係，有toke，更新時有可能需將token排除
+        // 因csrf的關係，有toke，更新時有「可能」需將token排除
         // $update_news = $request->except("_token");
 
+        $request_data = $request->all();  //將送來的request存成變數
 
-        $item = News::find($id);
-        // 刪除舊有圖片
-        if($request->hasFile('url')){
-            $old_img = $item->url;
-            Storage::delete($old_img);
+        $item = News::find($id);  //以id抓到正在動作的是哪一筆資料
+
+        // 刪除舊有圖片:
+        if($request->hasFile('url')){ //判斷是否有新增檔案上傳
+            $old_img = $item->url;     //若有，抓到原資料中的url欄位內容
+            // !!!注意!!!  用storage時需安裝套件:league/flysystem-cached-adapter
+            Storage::disk('public')->delete($old_img);  //用Storage刪除
+            // !!!注意!!!
+            $new_img = $request->file('url')->store('','public');  //抓到新上傳的檔案並儲存進public
+            $request_data["url"] = $new_img;  //將送進來的request中的url改成儲存的檔名
         }
 
-        // $item->update($request->all());
-        // return redirect('/home/news');
+        $item->update($request_data);  //進行更新
+        return redirect('/home/news');
     }
 
     public function delete($id)
     {
-        News::find($id)->delete();
+        $item = News::find($id);  //找到正在執行動作的是哪一筆資料
+        Storage::disk('public')->delete("$item->url");  //將資料的檔案刪除
+        $item->delete(); //刪除資料
         return redirect("/home/news");
     }
 
