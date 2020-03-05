@@ -15,7 +15,8 @@
 // FrontController@news  -->> 使用FrontController中的news函式
 Route::get('/', 'FrontController@index');  //前端，首頁
 
-Route::get('/news', 'FrontController@news');  //前端，最新消息頁
+Route::get('/news', 'FrontController@news');  //前端，最新消息頁，list apge
+Route::get('/news/detail/{id}', 'FrontController@news_detail');  //前端，最新消息頁，content apge
 
 Route::get('/product', 'FrontController@product');  //前端，產品頁面
 

@@ -80,7 +80,7 @@
             <div class="col-12 col-md-3">
                 <div class="media-wrap">
                     <a href="//">
-                        <img src="assets/images/logo2.png" alt="Mobirise">
+                        <img src="{{asset('assets/images/logo2.png')}}" alt="Mobirise">
                     </a>
                 </div>
             </div>

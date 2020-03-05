@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\News;
+use App\News_img;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,6 +18,7 @@ class NewsController extends Controller
     {
         return view('admin/news/create');
     }
+
     public function store(Request $request)
     {
         $news_data = $request->all();
@@ -24,7 +26,19 @@ class NewsController extends Controller
         $file = $request->file("url")->store('','public');
         $news_data['url'] = $file;
 
-        News::create($news_data)->save();
+        $father_news = News::create($news_data);
+        if($request->hasFile('sub_img')){
+            foreach ($request->sub_img as  $sub_img) {
+                $sub_path = $sub_img->store('','public');
+                $foreign_key = $father_news->id;
+                $news_img = new News_img;
+                $news_img->img_url = $sub_path;
+                $news_img->news_id = $foreign_key;
+                $news_img->save();
+            }
+        }
+
+
         return redirect('/home/news');
     }
 
@@ -32,7 +46,7 @@ class NewsController extends Controller
 
     public function edit($id)
     {
-        $news = News::find($id);
+        $news = News::with("news_imgs")->find($id);
         return view('admin/news/edit',compact('news'));
     }
 

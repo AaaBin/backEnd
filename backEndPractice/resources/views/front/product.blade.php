@@ -14,7 +14,7 @@
                     </li>
                 </ul>
             </div><!-- Gallery -->
-            <div class="mbr-gallery-row">
+            <div class="mbr-gallery-row" style="min-height:70vh">
                 <div class="mbr-gallery-layout-default">
                     <div>
                         <div>

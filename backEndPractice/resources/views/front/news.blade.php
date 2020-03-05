@@ -22,7 +22,7 @@
                             </p>
                         </div>
                         <div class="mbr-section-btn text-center">
-                            <a href="" class="btn btn-primary btn-sm">
+                            <a href="/news/detail/{{$item->id}}" class="btn btn-primary btn-sm">
                                 Learn More
                             </a>
                         </div>
