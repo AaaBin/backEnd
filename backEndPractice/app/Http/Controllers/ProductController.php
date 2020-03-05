@@ -38,6 +38,8 @@ class ProductController extends Controller
     }
     public function update(Request $request,$id)
     {
+        dd($request);
+
         $request_data = $request->all();  //將送來的request存成變數
         $item = Product::find($id);  //以id抓到正在動作的是哪一筆資料
 

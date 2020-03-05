@@ -1,4 +1,16 @@
 @extends('layouts/nav')
+
+
+@section('css')
+    <style>
+        #inner_card{
+
+        }
+    </style>
+
+@endsection
+
+
 @section('content')
 <section class="engine"><a href="https://mobirise.info/x">css templates</a></section>
 <section class="features3 cid-rRF3umTBWU" id="features3-7">
@@ -9,23 +21,25 @@
             {{-- {{$item->news_imgs}} --}}
             {{-- 再用foreach將各筆資料抓出 --}}
 
-            {{$item2}}
-
-            <div class="row">
-                <div class="">
-                    main img
+            <h2 class="row p-5 text-body">
+                {{$item->title}}
+            </h2>
+            <div class="row bg-primary">
+                <div class="p-5">
                     <img width="400px" src="/storage/{{$item->url}}" alt="">
                 </div>
-                <div class="col-3 pt-5">
-                    <p>
-                        {{$item->content}}
+                <div class="col-6 pt-5 ">
+                    <p class=" p-3">
+                        {{$item->content}}，Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque amet dolore neque inventore. Consectetur autem quis quo culpa deleniti ipsa, nam debitis animi quidem. Adipisci iure ea reprehenderit saepe officia?
                     </p>
                 </div>
             </div>
             <div class="row">
                 @foreach ($item->news_imgs as $key=>$news_img)
-                <div>
-                    sub img{{$key}}
+                <div class="m-5  bg-secondary p-3">
+                    <p>
+                        sub img{{$key}}
+                    </p>
                     <img width="200px" src="/storage/{{$news_img->img_url}}" alt="">
                 </div>
                 @endforeach

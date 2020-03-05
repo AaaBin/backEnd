@@ -45,7 +45,8 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
     Route::get('/news/edit/sort_up/{id}', 'NewsController@sort_up');  //更改排序
     Route::get('/news/edit/sort_down/{id}', 'NewsController@sort_down');  //更改排序
 
-
+    Route::post('/news/delete_news_sub_img', 'NewsController@delete_sub_img');  //edit page刪除sub_img
+    Route::post('/news/change_sub_img_sort', 'NewsController@change_sub_img_sort');  //edit page更改sub_im的sort
 
 
     Route::get('/product', 'ProductController@index');  //產品列表
