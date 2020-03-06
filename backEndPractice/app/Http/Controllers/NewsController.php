@@ -26,7 +26,7 @@ class NewsController extends Controller
         $news_data['url'] = $file;  //將原先的url欄位中的檔案改成檔案的路徑進行儲存
         $father_news = News::create($news_data);  //將資料用create方式儲存進資料庫，並建立成一變數
         if($request->hasFile('sub_img')){  //判斷除了主img之外是否有上傳多個檔案
-            // !!!注意!!!  input欄位在上傳多比檔案時送來的資料型態會是陣列
+            // !!!注意!!!  input在上傳多比檔案時送來的資料型態會是陣列
             foreach ($request->sub_img as  $sub_img) {  //對由上傳的檔案s組成的陣列進行foreach，抓出每一筆檔案
                 $sub_path = $sub_img->store('','public');  //對檔案進行儲存，並抓到檔案名稱(路徑)
                 $foreign_key = $father_news->id;  //利用上面已經儲存進主資料表的資料，抓出id值作為關聯資料的foreign key
@@ -56,17 +56,29 @@ class NewsController extends Controller
         // $update_news = $request->except("_token");
 
         $request_data = $request->all();  //將送來的request存成變數
-
         $item = News::find($id);  //以id抓到正在動作的是哪一筆資料
 
         // 刪除舊有圖片:
         if($request->hasFile('url')){ //判斷是否有新增檔案上傳
             $old_img = $item->url;     //若有，抓到原資料中的url欄位內容
+
             // !!!注意!!!  用storage時需安裝套件:league/flysystem-cached-adapter
             Storage::disk('public')->delete($old_img);  //用Storage刪除
-            // !!!注意!!!
+
             $new_img = $request->file('url')->store('','public');  //抓到新上傳的檔案並儲存進public
             $request_data["url"] = $new_img;  //將送進來的request中的url改成儲存的檔名
+        }
+
+        // 上傳新副圖片(sub_img):
+        if($request->hasFile('sub_img')){ //判斷是否有新增副圖片上傳
+
+            foreach ($request->sub_img as $sub_img) {
+                $sub_img_path = $sub_img->store('',"public");   //儲存檔案，並將名稱設為變數
+                $new_sub_img = new News_img;  //用new建立新的一筆資料，依欄位名稱填入值
+                $new_sub_img->news_id = $id;
+                $new_sub_img->img_url = $sub_img_path;
+                $new_sub_img->save();
+            }
         }
 
         $item->update($request_data);  //進行資料更新
@@ -78,6 +90,13 @@ class NewsController extends Controller
         $item = News::find($id);  //找到正在執行動作的是哪一筆資料
         Storage::disk('public')->delete("$item->url");  //將資料的檔案刪除
         $item->delete(); //刪除資料
+
+        $sub_imgs = News_img::where('news_id',$id)->get();  //用where抓到news_id欄位符合$id的資料，並用get取出來
+        foreach($sub_imgs as $news_img){   //因為是多筆資料，為陣列型態，對每個資料進行刪除檔案及資料
+            Storage::disk('public')->delete("$news_img->img_url");  //將資料的檔案刪除
+            $news_img->delete(); //刪除資料
+        }
+
         return redirect("/home/news");
     }
 
@@ -97,11 +116,29 @@ class NewsController extends Controller
         $item->update();
         return redirect('home/news');
     }
-    public function sort_down($id)
+    // public function sort_down($id)
+    // {
+    //     $item = News::find($id);
+    //     $sort_value = $item->sort;
+    //     $target = News::where('sort','<',$sort_value)->orderby('sort','desc')->first();
+    //     if ($target == null) {
+    //         $item->sort = $sort_value - 1;
+    //     }else{
+    //         $target_sort_value = $target->sort;
+    //         $item->sort = $target_sort_value;
+    //         $target->sort = $sort_value;
+    //         $target->update();
+    //     }
+    //     $item->update();
+    //     return redirect('home/news');
+    // }
+    public function sort_down(Request $request)
     {
-        $item = News::find($id);
+
+        $item = News::find($request->data_id);
         $sort_value = $item->sort;
         $target = News::where('sort','<',$sort_value)->orderby('sort','desc')->first();
+
         if ($target == null) {
             $item->sort = $sort_value - 1;
         }else{
@@ -111,9 +148,8 @@ class NewsController extends Controller
             $target->update();
         }
         $item->update();
-        return redirect('home/news');
+        return $target;
     }
-
 
     public function delete_sub_img(Request $request)
     {

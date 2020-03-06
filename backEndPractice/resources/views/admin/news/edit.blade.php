@@ -20,10 +20,10 @@
         {{-- 傳入的資料為物件型態 --}}
         {{-- {{$news}} --}}
         @csrf
-        <span>
+        <div class="">
             <p>現有的主圖片:</p>
-            <img class="rounded" width="250px" src="/storage/{{$news->url}}" alt="">
-        </span>
+            <img class="rounded p-3 bg-secondary" width="500px" src="/storage/{{$news->url}}" alt="">
+        </div>
         <div class="form-group">
             <label for="url">upload new img</label>
             {{-- 將選擇到的表單內容寫入預設值value --}}
@@ -45,7 +45,7 @@
         <div class="form-group">
             <div class="form-group">
                 <label for="sub_img">upload new sub img</label>
-                <input type="file" class="form-control" id="sub_img" name="sub_img">
+                <input type="file" class="form-control" id="sub_img" name="sub_img[]" multiple>
             </div>
         </div>
         <hr>

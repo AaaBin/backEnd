@@ -18,7 +18,7 @@
                 <th>img</th>
                 <th>title</th>
                 <th>content</th>
-                <th>權重</th>
+                <th id="test">權重</th>
                 <th width='100'>權重順訊</th>
                 <th width='80'></th>
             </tr>
@@ -39,7 +39,7 @@
                         class="btn btn-outline-info btn-sm col-12 btn-block">Up</a>
                     <a href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="too_small({{$item->sort}},{{$item->id}})">Down</a>
                     {{-- 隱藏一個link，若sort值大於0則送出 --}}
-                    <a id="sort_down_link{{$item->id}}" href="/home/news/edit/sort_down/{{$item->id}}" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="too_small({{$item->sort}})" style="display: none;"></a>
+                    {{-- <a id="sort_down_link{{$item->id}}" href="/home/news/edit/sort_down/{{$item->id}}" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="too_small({{$item->sort}})" style="display: none;"></a> --}}
 
                 </td>
                 <td>
@@ -88,14 +88,30 @@
             }
         }
 </script>
-
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 <script>
     function too_small(i,k){
         if (i < 1) {
             alert("the min. sort value is 0,cann't be smaller");
         } else {
-            $target = document.querySelector(`#sort_down_link${k}`);
-            $target.click();
+            // $target = document.querySelector(`#sort_down_link${k}`);
+            // $target.click();
+
+            $.ajax({
+            type:"POST",
+            url:`/home/news/edit/sort_down/${k}`,
+            data:{data_id:k},
+            success:function(result){
+                console.log("success",result);
+                
+            }
+            });
         }
     }
 </script>

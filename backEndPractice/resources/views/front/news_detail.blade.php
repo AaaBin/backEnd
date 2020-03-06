@@ -21,22 +21,23 @@
             {{-- {{$item->news_imgs}} --}}
             {{-- 再用foreach將各筆資料抓出 --}}
 
-            <h2 class="row p-5 text-body">
-                {{$item->title}}
+            <h2 class="row p-3 text-body bg-primary rounded">
+                title:{{$item->title}}
             </h2>
-            <div class="row bg-primary">
+            <div class="row bg-secondary rounded">
                 <div class="p-5">
                     <img width="400px" src="/storage/{{$item->url}}" alt="">
                 </div>
                 <div class="col-6 pt-5 ">
                     <p class=" p-3">
+                        content: <br>
                         {{$item->content}}，Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque amet dolore neque inventore. Consectetur autem quis quo culpa deleniti ipsa, nam debitis animi quidem. Adipisci iure ea reprehenderit saepe officia?
                     </p>
                 </div>
             </div>
             <div class="row">
                 @foreach ($item->news_imgs as $key=>$news_img)
-                <div class="m-5  bg-secondary p-3">
+                <div class="m-3  bg-secondary p-3 rounded">
                     <p>
                         sub img{{$key}}
                     </p>
