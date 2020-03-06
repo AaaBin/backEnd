@@ -33,7 +33,7 @@ class FrontController extends Controller
 
 
         // 方法三:with('functionname')  會將關連的子資料夾帶進主資料中，多形成一個欄位
-        $item2 = News::with('news_imgs')->find($id);
+        $item2 = News::with('news_imgs')->find($id)->orderBy("sort",'desc');
         return view('front/news_detail' , compact('item','item2'));
     }
 

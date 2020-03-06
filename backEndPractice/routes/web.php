@@ -42,9 +42,9 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
     // 刪除動作要避免使用get，以免使用者能夠藉由輸入網址來刪除資料
     Route::post('/news/delete/{id}', 'NewsController@delete');  //刪除最新消息
 
-    Route::get('/news/edit/sort_up/{id}', 'NewsController@sort_up');  //更改排序
+    Route::post('/news/edit/sort_up', 'NewsController@sort_up');  //更改排序
     // Route::get('/news/edit/sort_down/{id}', 'NewsController@sort_down');  //更改排序
-    Route::post('/news/edit/sort_down/{id}', 'NewsController@sort_down');  //更改排序
+    Route::post('/news/edit/sort_down', 'NewsController@sort_down');  //更改排序
 
 
     Route::post('/news/delete_news_sub_img', 'NewsController@delete_sub_img');  //edit page刪除sub_img

@@ -30,12 +30,12 @@
             <input type="file" class="form-control" id="url" name="url">
         </div>
         <hr>
-        <div id="sub_img_edit" class="d-flex align-items-start">
-            <p>現有的副圖片:</p>
+        <p>現有的副圖片:</p>
+        <div id="sub_img_edit" class="d-flex align-items-start flex-wrap">
             @foreach ($news_imgs as $item)
 
             <div  class="sub_img_card col-2 bg-secondary mx-2 p-3 rounded form-group"  data-sub_img="{{$item->id}}">
-                <button  type="button" class='btn btn-danger' onclick="send_ajax({{$item->id}})">X</button>
+                <button  type="button" class='btn btn-danger' onclick="ajax_delete_sub_img({{$item->id}})">X</button>
                 <img class="img-fluid  rounded" src="/storage/{{$item->img_url}}" alt="">
                 <input data-sort_id="{{$item->id}}" type="number" min="0" class="form-control" value="{{$item->sort}}" name="sub_img_sort{{$item->id}}" >
 
@@ -78,7 +78,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    function send_ajax(k){
+    function ajax_delete_sub_img(k){
         $.ajax({
         type:"POST",
         url:`/home/news/delete_news_sub_img`,
@@ -93,7 +93,7 @@
 
 <script>
 
-    $('.sub_img_card input').click(function(){
+    $('.sub_img_card input').change(function(){
         let sort_id = this.getAttribute('data-sort_id');
         let sort_value = this.value;
 
