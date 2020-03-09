@@ -9,15 +9,13 @@
 
 @section('content')
 <div class="container">
-    <a href="/home/news/create" class="btn btn-success">新增最新消息</a>
+    <a href="/home/productCategory/create" class="btn btn-success">新增產品類別</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
         <thead>
             <tr>
-                <th>img</th>
-                <th>title</th>
-                <th>content</th>
+                <th>Name</th>
                 <th id="test">權重</th>
                 <th width='100'>權重順訊</th>
                 <th width='80'></th>
@@ -25,32 +23,27 @@
         </thead>
 
         <tbody>
-            @foreach ($all_news as $item)
             <tr>
-                <td>
-                    {{-- 上傳的檔案會以類似連結的形式出現在public/storage內 --}}
-                    <img width="120px" src="/storage/{{$item->url}}" alt="">
-                </td>
-                <td>{{$item->title}}</td>
-                <td>{!!$item->content!!}</td>
-                <td data-sort_id='{{$item->id}}'>{{$item->sort}}</td>
+                <td>default category</td>
+                <td>-1</td>
+                <td></td>
+                <td></td>
+            </tr>
+            @foreach ($all_product_category as $item)
+            <tr>
+                <td>{{$item->name}}</td>
+                <td data-sort_id="{{$item->id}}">{{$item->sort}}</td>
                 <td>
                     <a  type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="sort_up({{$item->sort}},{{$item->id}})">Up</a>
                     <a  data-btn_id="{{$item->id}}" href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
                         onclick="too_small({{$item->sort}},{{$item->id}});test({{$item->id}})">Down</a>
-                    {{-- 隱藏一個link，若sort值大於0則送出 --}}
-                    {{-- <a id="sort_down_link{{$item->id}}" href="/home/news/edit/sort_down/{{$item->id}}"
-                    type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
-                    onclick="too_small({{$item->sort}})" style="display: none;"></a> --}}
-
                 </td>
                 <td>
-                    <a href="/home/news/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
-
+                    <a href="/home/productCategory/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
                     {{-- 點擊連結→觸發js事件→中斷連結的事件進行，執行指定函式 --}}
                     <a href="#" class="btn col-12 btn-block btn-sm btn-danger"
                         onclick="event.preventDefault();show_confirm(`{{$item->id}}`)">刪除</a>
-                    <form id="delete_form{{$item->id}}" action="/home/news/delete/{{$item->id}}" method="POST"
+                    <form id="delete_form{{$item->id}}" action="/home/productCategory/delete/{{$item->id}}" method="POST"
                         style="display: none;">
                         @csrf
                     </form>
@@ -76,7 +69,7 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            "order": [[ 3, "desc" ]]
+            "order": [[ 1, "desc" ]]
             });
         });
 </script>
@@ -84,7 +77,7 @@
 <script>
     // confirm函式，跳出視窗警告使用者正在進行刪除行為，若確認，則送出隱藏的表單，執行刪除
         function show_confirm(k){
-            let r = confirm("你即將刪除這筆最新消息!");
+            let r = confirm("你即將刪除這筆產品類別!");
             if (r == true){
                 document.querySelector(`#delete_form${k}`).submit();
             }
@@ -116,7 +109,7 @@
             // 若索引值大於1，以ajax送出資料(post)
             $.ajax({
             type:"POST",
-            url:`/home/news/edit/sort_down`,
+            url:`/home/productCategory/edit/sort_down`,
             // 送出的值為點擊到的這筆資料的id
             data:{data_id:k},
             success:function(result){
@@ -134,7 +127,7 @@
 
                 // 最後重新將datatable初始化，以達成即時重新排序的目的
                 $('#example').DataTable({
-                "order": [[ 3, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 // 初始化須加上destroy:true，讓datatable將資料刪除重來
                 destroy:true,
                 });
@@ -148,7 +141,7 @@
             // 若索引值大於1，以ajax送出資料(post)
             $.ajax({
             type:"POST",
-            url:`/home/news/edit/sort_up`,
+            url:`/home/productCategory/edit/sort_up`,
             // 送出的值為id
             data:{data_id:k},
             success:function(result){
@@ -164,7 +157,7 @@
 
 
                 $('#example').DataTable({
-                "order": [[ 3, "desc" ]],
+                "order": [[ 1, "desc" ]],
                 destroy:true,
                 });
             }

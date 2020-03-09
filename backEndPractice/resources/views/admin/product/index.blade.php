@@ -28,18 +28,14 @@
                 <td>
                     <img width="100" src="/storage/{{$item->url}}" alt="" class="m-auto">
                 </td>
-                <td>{{$item->category}}</td>
-                <td>{{$item->sort}}</td>
                 <td>
-                    <a href="/home/product/edit/sort_up/{{$item->id}}" type="button"
-                        class="btn btn-outline-info btn-sm col-12 btn-block">Up</a>
-                    <a href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
-                        onclick="too_small({{$item->sort}},{{$item->id}})">Down</a>
-                    {{-- 隱藏一個link，若sort值大於0則送出 --}}
-                    <a id="sort_down_link{{$item->id}}" href="/home/product/edit/sort_down/{{$item->id}}" type="button"
-                        class="btn btn-outline-info btn-sm col-12 btn-block" onclick="too_small({{$item->sort}})"
-                        style="display: none;"></a>
-
+                    {{$item->category}}
+                </td>
+                <td data-sort_id="{{$item->id}}">{{$item->sort}}</td>
+                <td>
+                    <a  type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="sort_up({{$item->sort}},{{$item->id}})">Up</a>
+                    <a  data-btn_id="{{$item->id}}" href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
+                        onclick="too_small({{$item->sort}},{{$item->id}});test({{$item->id}})">Down</a>
                 </td>
                 <td>
                     <a href="/home/product/edit/{{$item->id}}" class="btn col-12 btn-block btn-sm btn-primary">修改</a>
@@ -69,7 +65,15 @@
 {{-- 接入js，並初始化datatables套件 --}}
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
+<script>
+    // confirm函式，跳出視窗警告使用者正在進行刪除行為，若確認，則送出隱藏的表單，執行刪除
+        function show_confirm(k){
+            let r = confirm("你即將刪除這項產品資料!");
+            if (r == true){
+                document.querySelector(`#delete_form${k}`).submit();
+            }
+        }
+</script>
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
@@ -79,22 +83,84 @@
 </script>
 
 <script>
-    // confirm函式，跳出視窗警告使用者正在進行刪除行為，若確認，則送出隱藏的表單，執行刪除
-        function show_confirm(k){
-            let r = confirm("你即將刪除這筆最新消息!");
-            if (r == true){
-                document.querySelector(`#delete_form${k}`).submit();
-            }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
 </script>
 <script>
+    function test(d){
+        let sort_value_now = $(`td[data-sort_id=${d}]`)[0].innerHTML;
+        console.log(sort_value_now);
+    }
+
+
+
+    // 在index頁更改sort時，及時更新畫面排序
     function too_small(i,k){
-            if (i < 1) {
-                alert("the min. sort value is 0,cann't be smaller");
-            } else {
-                $target = document.querySelector(`#sort_down_link${k}`);
-                $target.click();
+        let sort_value_now = $(`td[data-sort_id=${k}]`)[0].innerHTML;
+        console.log(sort_value_now);
+        // onclick時，傳來現有索引值跟動作物件的id，判斷若索引值小於1，則跳出警告，不進行更改
+        if (sort_value_now < 1) {
+            alert("the min. sort value is 0,cann't be smaller");
+        } else {
+            // 若索引值大於1，以ajax送出資料(post)
+            $.ajax({
+            type:"POST",
+            url:`/home/product/edit/sort_down`,
+            // 送出的值為點擊到的這筆資料的id
+            data:{data_id:k},
+            success:function(result){
+                console.log(result);
+                // 那麼就只需要抓到被點擊到的資料是哪一筆，並以innerHTML的方法更改「網頁中」sort欄位的值
+                let on_change_sort = $(`td[data-sort_id=${k}]`)[0];
+                on_change_sort.innerHTML = result[0];
+                // 若有第三筆，則是代表這次的動作是兩筆資料的索引值互換，第三筆資料為互換對象的id
+                // 所以要抓到互換索引值的對象，並同樣以innerHTML的方法更改「網頁中」sort欄位的值
+                if (result.length == 3){
+                    let target_id = result[2];
+                    let on_change_sort2 = $(`td[data-sort_id=${target_id}]`)[0];
+                    on_change_sort2.innerHTML = result[1];
+                }
+
+                // 最後重新將datatable初始化，以達成即時重新排序的目的
+                $('#example').DataTable({
+                "order": [[ 2, "desc" ]],
+                // 初始化須加上destroy:true，讓datatable將資料刪除重來
+                destroy:true,
+                });
             }
+            });
         }
+    }
+
+
+    function sort_up(i,k){
+            // 若索引值大於1，以ajax送出資料(post)
+            $.ajax({
+            type:"POST",
+            url:`/home/product/edit/sort_up`,
+            // 送出的值為id
+            data:{data_id:k},
+            success:function(result){
+                // console.log("success",result);
+                let on_change_sort = $(`td[data-sort_id=${k}]`)[0];
+                on_change_sort.innerHTML = result[0];
+                let target_id = result[2];
+
+                if (result.length == 3){
+                    let on_change_sort2 = $(`td[data-sort_id=${target_id}]`)[0];
+                    on_change_sort2.innerHTML = result[1];
+                }
+
+
+                $('#example').DataTable({
+                "order": [[ 2, "desc" ]],
+                destroy:true,
+                });
+            }
+            });
+    }
 </script>
 @endsection

@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
 
+
+    // 最新消息
     Route::get('/news', 'NewsController@index');  //最新消息列表頁
 
     Route::get('/news/create', 'NewsController@create');  //新增最新消息頁面
@@ -50,19 +52,40 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
     Route::post('/news/delete_news_sub_img', 'NewsController@delete_sub_img');  //edit page刪除sub_img
     Route::post('/news/change_sub_img_sort', 'NewsController@change_sub_img_sort');  //edit page更改sub_im的sort
 
-
+    // 產品
     Route::get('/product', 'ProductController@index');  //產品列表
 
     Route::get('/product/create', 'ProductController@create'); //新增產品
-    Route::post('/product/store', 'productController@store');   //儲存表單資料
+    Route::post('/product/store', 'ProductController@store');   //儲存表單資料
 
     Route::get('/product/edit/{id}', 'ProductController@edit');  //修改產品頁面
-    Route::post('/product/update/{id}', 'ProductController@update');  //修改產品
+    Route::post('/product/update/{id}', 'ProductController@update');  //更新
 
     Route::post('/product/delete/{id}', 'ProductController@delete');  //刪除產品
 
-    Route::get('/product/edit/sort_up/{id}', 'ProductController@sort_up');  //更改排序
-    Route::get('/product/edit/sort_down/{id}', 'ProductController@sort_down');  //更改排序
+    Route::post('/product/edit/sort_up', 'ProductController@sort_up');  //更改排序
+    Route::post('/product/edit/sort_down', 'ProductController@sort_down');  //更改排序
+
+    // 產品類別
+    Route::get('/productCategory', 'ProductCategoryController@index');  //產品類別列表
+
+    Route::get('/productCategory/create', 'ProductCategoryController@create'); //新增產品類別
+    Route::post('/productCategory/store', 'ProductCategoryController@store');   //儲存表單資料
+
+    Route::get('/productCategory/edit/{id}', 'ProductCategoryController@edit');  //修改page
+    Route::post('/productCategory/update/{id}', 'ProductCategoryController@update');  //更新
+
+    Route::post('/productCategory/delete/{id}', 'ProductCategoryController@delete');  //刪除產品
+
+    Route::post('/productCategory/edit/sort_up', 'ProductCategoryController@sort_up');  //更改排序
+    Route::post('/productCategory/edit/sort_down', 'ProductCategoryController@sort_down');  //更改排序
+
+
+
+
+    Route::post('/news/ajax_upload_img', 'summernoteUploadImg@ajax_upload_img');  //summernote upload img
+    Route::post('/news/ajax_delete_img', 'summernoteUploadImg@ajax_delete_img');  //summernote upload img
+
 
 
 

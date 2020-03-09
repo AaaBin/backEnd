@@ -16,11 +16,10 @@
         </div>
         <div class="form-group">
             <label for="category">category</label>
-            <select multiple class="form-control" id="category" name='category' required>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
+            <select class="form-control" id="category" name='category' required>
+                @foreach ($cotegories as $item)
+                    <option>{{$item->name}}</option>
+                @endforeach
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

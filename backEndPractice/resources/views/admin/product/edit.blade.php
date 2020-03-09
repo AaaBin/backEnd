@@ -17,11 +17,10 @@
         </div>
         <div class="form-group">
             <label for="category">category</label>
-            <select id="select_dropdown" multiple class="form-control" id="category" name='category' data-category="{{$product->category}}">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
+            <select id="select_dropdown"  class="form-control" id="category" name='category' data-category="{{$product->category}}">
+                @foreach ($cotegories as $item)
+                    <option>{{$item['name']}}</option>
+                @endforeach
             </select>
           </div>
           <div class="form-group">

@@ -31,7 +31,7 @@
                 <div class="col-6 pt-5 ">
                     <p class=" p-3">
                         content: <br>
-                        {{$item->content}}，Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque amet dolore neque inventore. Consectetur autem quis quo culpa deleniti ipsa, nam debitis animi quidem. Adipisci iure ea reprehenderit saepe officia?
+                        {!!$item->content!!}，Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque amet dolore neque inventore. Consectetur autem quis quo culpa deleniti ipsa, nam debitis animi quidem. Adipisci iure ea reprehenderit saepe officia?
                     </p>
                 </div>
             </div>

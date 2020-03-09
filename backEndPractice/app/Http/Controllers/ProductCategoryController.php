@@ -1,70 +1,82 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Product;
+
 use App\product_categories;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-
-class ProductController extends Controller
+class ProductCategoryController extends Controller
 {
     public function index()
     {
-        $all_product = product::with('categories')->get();
-        return view('admin/product/index',compact('all_product'));
+        $all_product_category = product_categories::all();
+        return view('admin/product_category/index',compact('all_product_category'));
     }
     public function create()
     {
-        $cotegories = product_categories::all()->sortByDesc("sort");
-        return view('admin/product/create',compact('cotegories'));
+        return view('admin/product_category/create');
     }
 
     public function store(Request $request)
     {
-        $product_data = $request->all();
-
-        $file = $request->file("url")->store('','public');
-        $product_data['url'] = $file;
-
-        Product::create($product_data)->save();
-        return redirect('/home/product');
+        $category_data = $request->all();   //將送來的request存成變數
+        product_categories::create($category_data);  //將資料用create方式儲存進資料庫，並建立成一變數
+        return redirect('/home/productCategory');
     }
 
 
     public function edit($id)
     {
-        $product = Product::find($id);
-        $cotegories = product_categories::all()->sortByDesc("sort");
-        return view('admin/product/edit',compact('product','cotegories'));
+        $product_category = product_categories::find($id);
+
+        return view('admin/product_category/edit',compact('product_category'));
     }
+
     public function update(Request $request,$id)
     {
         $request_data = $request->all();  //將送來的request存成變數
-        $item = Product::find($id);  //以id抓到正在動作的是哪一筆資料
-
-        // 刪除舊有圖片:
-        if($request->hasFile('url')){ //判斷是否有新增檔案上傳
-            $old_img = $item->url;     //若有，抓到原資料中的url欄位內容
-            // !!!注意!!!  用storage時需安裝套件:league/flysystem-cached-adapter
-            Storage::disk('public')->delete($old_img);  //用Storage刪除
-            // !!!注意!!!
-            $new_img = $request->file('url')->store('','public');  //抓到新上傳的檔案並儲存進public
-            $request_data["url"] = $new_img;  //將送進來的request中的url改成儲存的檔名
+        $item = product_categories::find($id);  //以id抓到正在動作的是哪一筆資料
+        $item_category_name = $item->name;  //更新前名稱
+        $new_category_name = $request_data['name'];  //更新後的名稱
+        // 更新產品類別名稱時也要將有套用到此產品類別的產品做更新
+        $products = Product::where('category',$item_category_name)->get();  //此類別的產品(array)
+        foreach ($products as $product) {
+            $product->category = $new_category_name;
+            $product->update();
         }
 
-        $item->update($request_data);  //進行更新
-        return redirect('/home/product');
+        $item->update($request_data);  //進行資料更新
+        return redirect('/home/productCategory');
     }
 
     public function delete($id)
     {
-        $item = Product::find($id);  //找到正在執行動作的是哪一筆資料
-        Storage::disk('public')->delete("$item->url");  //將資料的檔案刪除
+        $item = product_categories::find($id);  //找到正在執行動作的是哪一筆資料
+
+        $item_category_name = $item->name;  //要被刪除的類別名稱
+        // 刪除類別時也要將有套用到此類別的產品修改為預設類別
+        $products = Product::where('category',$item_category_name)->get();
+        foreach ($products as $product) {
+            $product->category = 'default';
+            $product->update();
+        }
+
+
+
         $item->delete(); //刪除資料
-        return redirect("/home/product");
+
+        return redirect("/home/productCategory");
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -73,13 +85,13 @@ class ProductController extends Controller
     public function sort_down(Request $request)
     {
         // 依照ajax送進來的資料，抓到正在動作的是哪一筆資料(主資料)
-        $item = Product::find($request->data_id);
+        $item = product_categories::find($request->data_id);
         // 抓到主資料的目前sort值
         $sort_value = $item->sort;
-        // 用where方法，抓到Product資料庫的sort欄位中值比主資料sort值還小的資料
+        // 用where方法，抓到product_categories資料庫的sort欄位中值比主資料sort值還小的資料
         // 但抓出的資料有可能是複數比資料，所以將抓出來的資料依sort欄位的值大小進行排序(依up、down來更改排序方式)
         // 排序後以first抓到第一筆，存成變數(目標資料)
-        $target = Product::where('sort','<',$sort_value)->orderby('sort','desc')->first();
+        $target = product_categories::where('sort','<',$sort_value)->orderby('sort','desc')->first();
 
         if ($target == null) {
             // 進行判斷，如果目標資料不存在，代表主資料的sort值已經是最小
@@ -116,13 +128,13 @@ class ProductController extends Controller
     public function sort_up(Request $request)
     {
         // 依照ajax送進來的資料，抓到正在動作的是哪一筆資料(主資料)
-        $item = Product::find($request->data_id);
+        $item = product_categories::find($request->data_id);
         // 抓到主資料的目前sort值
         $sort_value = $item->sort;
-        // 用where方法，抓到Product資料庫的sort欄位中值比主資料sort值還大的資料
+        // 用where方法，抓到product_categories資料庫的sort欄位中值比主資料sort值還大的資料
         // 但抓出的資料有可能是複數比資料，所以將抓出來的資料依sort欄位的值大小進行排序(依up、down來更改排序方式)
         // 排序後以first抓到第一筆，存成變數(目標資料)
-        $target = Product::where('sort','>',$sort_value)->orderby('sort','asc')->first();
+        $target = product_categories::where('sort','>',$sort_value)->orderby('sort','asc')->first();
         // 先建立對象資料更改後的sort值，也就是主資料的sort值
 
         if ($target == null) {

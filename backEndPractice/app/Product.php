@@ -11,4 +11,8 @@ class Product extends Model
     protected $fillable = [
         'url','category','sort'
     ];
+    public function categories()
+    {
+        return $this->belongsTo('App\product_categories','category','name');
+    }
 }

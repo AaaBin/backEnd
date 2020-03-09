@@ -19,7 +19,7 @@
                     <div>
                         <div>
 
-                            {{-- 在foreach中帶入$key，代表陣列的鍵直 --}}
+                            {{-- 在foreach中帶入$key，代表陣列的鍵值 --}}
                             @foreach ($product_data as $key => $item)
                             <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false"
                                 data-tags="{{$item->category}}">
