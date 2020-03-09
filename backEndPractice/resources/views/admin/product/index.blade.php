@@ -18,7 +18,7 @@
                 <th>img</th>
                 <th>category</th>
                 <th>權重</th>
-                <th width='80'></th>
+                <th width='80'>權重順序</th>
                 <th></th>
             </tr>
         </thead>
@@ -33,7 +33,7 @@
                 </td>
                 <td data-sort_id="{{$item->id}}">{{$item->sort}}</td>
                 <td>
-                    <a  type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="sort_up({{$item->sort}},{{$item->id}})">Up</a>
+                    <a  href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="sort_up({{$item->sort}},{{$item->id}})">Up</a>
                     <a  data-btn_id="{{$item->id}}" href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
                         onclick="too_small({{$item->sort}},{{$item->id}});test({{$item->id}})">Down</a>
                 </td>

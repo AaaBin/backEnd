@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
         $product_data = $request->all();
 
-        $file = $request->file("url")->store('','public');
+        $file = $request->file("url")->store('product','public');
         $product_data['url'] = $file;
 
         Product::create($product_data)->save();
@@ -50,7 +50,7 @@ class ProductController extends Controller
             // !!!注意!!!  用storage時需安裝套件:league/flysystem-cached-adapter
             Storage::disk('public')->delete($old_img);  //用Storage刪除
             // !!!注意!!!
-            $new_img = $request->file('url')->store('','public');  //抓到新上傳的檔案並儲存進public
+            $new_img = $request->file('url')->store('product','public');  //抓到新上傳的檔案並儲存進public
             $request_data["url"] = $new_img;  //將送進來的request中的url改成儲存的檔名
         }
 

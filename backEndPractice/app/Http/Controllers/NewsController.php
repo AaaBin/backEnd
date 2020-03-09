@@ -22,13 +22,13 @@ class NewsController extends Controller
     public function store(Request $request)   //多檔案上傳
     {
         $news_data = $request->all();   //將送來的request存成變數
-        $file = $request->file("url")->store('','public'); //將url欄位中的檔案進行儲存，並抓到路徑
+        $file = $request->file("url")->store('news','public'); //將url欄位中的檔案進行儲存，並抓到路徑
         $news_data['url'] = $file;  //將原先的url欄位中的檔案改成檔案的路徑進行儲存
         $father_news = News::create($news_data);  //將資料用create方式儲存進資料庫，並建立成一變數
         if($request->hasFile('sub_img')){  //判斷除了主img之外是否有上傳多個檔案
             // !!!注意!!!  input在上傳多比檔案時送來的資料型態會是陣列
             foreach ($request->sub_img as  $sub_img) {  //對由上傳的檔案s組成的陣列進行foreach，抓出每一筆檔案
-                $sub_path = $sub_img->store('','public');  //對檔案進行儲存，並抓到檔案名稱(路徑)
+                $sub_path = $sub_img->store('news','public');  //對檔案進行儲存，並抓到檔案名稱(路徑)
                 $foreign_key = $father_news->id;  //利用上面已經儲存進主資料表的資料，抓出id值作為關聯資料的foreign key
                 $news_img = new News_img;  //利用new加上model名稱的方法，建立新資料
                 $news_img->img_url = $sub_path;  //一一將對應的欄位填入值
@@ -65,7 +65,7 @@ class NewsController extends Controller
             // !!!注意!!!  用storage時需安裝套件:league/flysystem-cached-adapter
             Storage::disk('public')->delete($old_img);  //用Storage刪除
 
-            $new_img = $request->file('url')->store('','public');  //抓到新上傳的檔案並儲存進public
+            $new_img = $request->file('url')->store('news','public');  //抓到新上傳的檔案並儲存進public
             $request_data["url"] = $new_img;  //將送進來的request中的url改成儲存的檔名
         }
 
@@ -73,7 +73,7 @@ class NewsController extends Controller
         if($request->hasFile('sub_img')){ //判斷是否有新增副圖片上傳
 
             foreach ($request->sub_img as $sub_img) {
-                $sub_img_path = $sub_img->store('',"public");   //儲存檔案，並將名稱設為變數
+                $sub_img_path = $sub_img->store('news',"public");   //儲存檔案，並將名稱設為變數
                 $new_sub_img = new News_img;  //用new建立新的一筆資料，依欄位名稱填入值
                 $new_sub_img->news_id = $id;
                 $new_sub_img->img_url = $sub_img_path;

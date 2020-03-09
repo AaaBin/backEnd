@@ -19,7 +19,7 @@
                 <th>title</th>
                 <th>content</th>
                 <th id="test">權重</th>
-                <th width='100'>權重順訊</th>
+                <th width='100'>權重順序</th>
                 <th width='80'></th>
             </tr>
         </thead>
