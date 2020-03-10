@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.12.1, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
+  {{-- <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon"> --}}
+  <link rel="icon" href="{{asset('accessible-icon-brands.svg')}}">
   <meta name="description" content="">
 
   <title>backend test</title>
