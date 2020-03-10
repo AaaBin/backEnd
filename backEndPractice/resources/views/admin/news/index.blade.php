@@ -103,8 +103,6 @@
         console.log(sort_value_now);
     }
 
-
-
     // 在index頁更改sort時，及時更新畫面排序
     function too_small(i,k){
         let sort_value_now = $(`td[data-sort_id=${k}]`)[0].innerHTML;
@@ -171,4 +169,5 @@
             });
     }
 </script>
+
 @endsection

@@ -49,6 +49,9 @@
                     <a class="navbar-caption text-white display-4" href="/home" style='font-family:微軟正黑體; font-weight:200'>
                         後台管理
                     </a>
+                    <a class="navbar-caption text-white display-4" href="/test" style='font-family:微軟正黑體; font-weight:200'>
+                        TEST
+                    </a>
                 </span>
             </div>
         </div>

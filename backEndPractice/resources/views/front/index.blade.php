@@ -78,3 +78,6 @@
 </section>
 
 @endsection
+
+@section('js')
+@endsection
