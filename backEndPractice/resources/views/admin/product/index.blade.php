@@ -9,6 +9,12 @@
 
 @section('content')
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">產品列表</li>
+        </ol>
+    </nav>
     <a href="/home/product/create" class="btn btn-success">新增產品</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -16,7 +22,9 @@
         <thead>
             <tr>
                 <th>img</th>
+                <th>drink name</th>
                 <th>category</th>
+                <th>price</th>
                 <th>權重</th>
                 <th width='80'>權重順序</th>
                 <th></th>
@@ -29,7 +37,13 @@
                     <img width="100" src="/storage/{{$item->url}}" alt="" class="m-auto">
                 </td>
                 <td>
+                    {{$item->name}}
+                </td>
+                <td>
                     {{$item->category}}
+                </td>
+                <td>
+                    {{$item->price}}
                 </td>
                 <td data-sort_id="{{$item->id}}">{{$item->sort}}</td>
                 <td>
@@ -77,7 +91,7 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            "order": [[ 2, "desc" ]]
+            "order": [[ 4, "desc" ]]
             });
         } );
 </script>
@@ -126,7 +140,7 @@
 
                 // 最後重新將datatable初始化，以達成即時重新排序的目的
                 $('#example').DataTable({
-                "order": [[ 2, "desc" ]],
+                "order": [[ 4, "desc" ]],
                 // 初始化須加上destroy:true，讓datatable將資料刪除重來
                 destroy:true,
                 });
@@ -156,7 +170,7 @@
 
 
                 $('#example').DataTable({
-                "order": [[ 2, "desc" ]],
+                "order": [[ 4, "desc" ]],
                 destroy:true,
                 });
             }

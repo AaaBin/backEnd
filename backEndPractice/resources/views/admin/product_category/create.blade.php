@@ -7,6 +7,13 @@
 @section('content')
 
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home/productCategory">產品類別列表</a></li>
+            <li class="breadcrumb-item active" aria-current="page">新增產品類別</li>
+        </ol>
+    </nav>
     <h1>新增產品類別</h1>
     <small>預設權重為0，若須修改請於新增完成後再修改</small>
     <hr>

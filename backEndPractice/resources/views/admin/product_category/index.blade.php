@@ -9,6 +9,12 @@
 
 @section('content')
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">產品類別列表</li>
+        </ol>
+    </nav>
     <a href="/home/productCategory/create" class="btn btn-success">新增產品類別</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">

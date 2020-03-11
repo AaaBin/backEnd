@@ -7,6 +7,13 @@
 @section('content')
 
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home/news">最新消息</a></li>
+            <li class="breadcrumb-item active" aria-current="page">新增最新消息</li>
+        </ol>
+    </nav>
     <h1>新增最新消息</h1>
     <small>預設權重為0，若須修改請於新增完成後再修改</small>
     <hr>

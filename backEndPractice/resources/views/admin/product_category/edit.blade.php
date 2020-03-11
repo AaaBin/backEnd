@@ -14,6 +14,13 @@
 @section('content')
 
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home/productCategory">產品類別列表</a></li>
+            <li class="breadcrumb-item active" aria-current="page">編輯產品類別:{{$product_category->name}}</li>
+        </ol>
+    </nav>
     <h2>編輯商品類別</h2>
     <hr>
     <form method="POST" action="/home/productCategory/update/{{$product_category->id}}" enctype="multipart/form-data">

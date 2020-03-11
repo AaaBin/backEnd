@@ -25,7 +25,7 @@
     </div>
     <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
         <a href="#next">
-            <i class="mbri-down mbr-iconfont"></i>
+            <i style="left:13px" class="mbri-down mbr-iconfont"></i>
         </a>
     </div>
 </section>

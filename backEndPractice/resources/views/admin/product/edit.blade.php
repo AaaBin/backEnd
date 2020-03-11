@@ -3,6 +3,13 @@
 @section('content')
 
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home/product">產品列表</a></li>
+            <li class="breadcrumb-item active" aria-current="page">編輯產品:{{$product->name}}</li>
+        </ol>
+    </nav>
     <h2>編輯最新消息</h2>
     <hr>
     <form method="POST" action="/home/product/update/{{$product->id}}" enctype="multipart/form-data">
@@ -14,6 +21,14 @@
         <div class="form-group">
         <label for="url">upload new img</label>
         <input type="file" class="form-control" id="url" name="url">
+        </div>
+        <div class="form-group">
+            <label for="name">drink name</label>
+            <input  class="form-control" id="name" name="name" value="{{$product->name}}" required>
+        </div>
+        <div class="form-group">
+            <label for="price">drink price</label>
+            <input type="number" min="0" class="form-control" id="price" name="price" value="{{$product->price}}" required>
         </div>
         <div class="form-group">
             <label for="category">category</label>

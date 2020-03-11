@@ -6,33 +6,18 @@
 
             {{-- 有資料送進來後可以將資料運用在頁面內容中 --}}
             {{-- 用foreach將每一筆資料寫入樣板中，自動產生同類型的內容 --}}
-            @foreach ($news_data as $item)
-                <div class="card p-3 col-12 col-md-6 col-lg-3 bg-secondary m-2 ">
-                    <div class="card-wrapper  rounded">
-                        <div class="card-img">
-                            {{-- php語法 --}}
-                            <img class="rounded p-1" src="/storage/{{$item->url}}" alt="news_img">
-                        </div>
-                        <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style display-7 p-3">
-                                {{$item->title}}
-                            </h4>
-                            <p class="mbr-text mbr-fonts-style display-7 p-3">
-                                {!!$item->content!!}
-                            </p>
-                        </div>
-                        <div class="mbr-section-btn text-center ">
-                            <a href="/news/detail/{{$item->id}}" class="btn btn-info btn-sm">
-                                Learn More
-                            </a>
+            <div class="card-deck">
+                @foreach ($news_data as $item)
+                    <div class="card bg-white m-2" style="width: 18rem;">
+                        <img src="/storage/{{$item->url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{$item->title}}</h5>
+                        <p class="card-text overflow-auto">{!!$item->content!!} Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                        <a href="/news/detail/{{$item->id}}" class="btn btn-primary ">More</a>
                         </div>
                     </div>
-                </div>
-            @endforeach
-
-
-
-
+                @endforeach
+            </div>
 
         </div>
     </div>

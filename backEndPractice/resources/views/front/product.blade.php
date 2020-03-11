@@ -21,12 +21,14 @@
 
                             {{-- 在foreach中帶入$key，代表陣列的鍵值 --}}
                             @foreach ($product_data as $key => $item)
-                            <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false"
+                            <div class="mbr-gallery-item mbr-gallery-item--p2 " data-video-url="false"
                                 data-tags="{{$item->category}}">
-                                <div href="#lb-gallery2-3" data-slide-to="{{$key}}" data-toggle="modal">
-                                    <img src="/storage/{{$item->url}}" alt="" title="">
-                                    <span class="icon-focus"></span>
+                                <div href="#lb-gallery2-3" data-slide-to="{{$key}}" data-toggle="modal" class="bg-secondary rounded d-flex flex-column align-items-center shadow-lg">
+                                    <img class="p-1" src="/storage/{{$item->url}}" alt="" title="">
+                                    <span  class="p-1 bg-transparent text-center">{{$item->name}}</span>
+                                    <span  class="bg-transparent text-center">{{$item->price}}$</span>
                                 </div>
+
                             </div>
                             @endforeach
 

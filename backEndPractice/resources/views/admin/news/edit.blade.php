@@ -14,6 +14,13 @@
 @section('content')
 
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home/news">最新消息</a></li>
+            <li class="breadcrumb-item active" aria-current="page">修改最新消息:{{$news->title}}</li>
+        </ol>
+    </nav>
     <h2>編輯最新消息</h2>
     <hr>
     <form method="POST" action="/home/news/update/{{$news->id}}" enctype="multipart/form-data">

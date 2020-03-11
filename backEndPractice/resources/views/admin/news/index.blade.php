@@ -9,6 +9,12 @@
 
 @section('content')
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">最新消息</li>
+        </ol>
+    </nav>
     <a href="/home/news/create" class="btn btn-success">新增最新消息</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -35,13 +41,9 @@
                 <td>{!!$item->content!!}</td>
                 <td data-sort_id='{{$item->id}}'>{{$item->sort}}</td>
                 <td>
-                    <a  type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="sort_up({{$item->sort}},{{$item->id}})">Up</a>
+                    <a href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block" onclick="sort_up({{$item->sort}},{{$item->id}})">Up</a>
                     <a  data-btn_id="{{$item->id}}" href="#" type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
                         onclick="too_small({{$item->sort}},{{$item->id}});test({{$item->id}})">Down</a>
-                    {{-- 隱藏一個link，若sort值大於0則送出 --}}
-                    {{-- <a id="sort_down_link{{$item->id}}" href="/home/news/edit/sort_down/{{$item->id}}"
-                    type="button" class="btn btn-outline-info btn-sm col-12 btn-block"
-                    onclick="too_small({{$item->sort}})" style="display: none;"></a> --}}
 
                 </td>
                 <td>
