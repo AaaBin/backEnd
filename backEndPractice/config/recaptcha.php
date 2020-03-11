@@ -78,7 +78,7 @@ return [
      * @since v3.6.0
      *
      */
-    'default_language'             => '	ja',
+    'default_language'             => 'ja',
 
     /**
      *

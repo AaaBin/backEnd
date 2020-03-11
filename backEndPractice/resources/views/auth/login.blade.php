@@ -44,15 +44,23 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label " for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row justify-content-center">
+                        <div class="form-group row justify-content-center ">
+
                             {!! htmlFormSnippet() !!}
+                            <input type="" class="form-control justify-content-center @error('g-recaptcha-response') is-invalid @enderror" style="display:none">
+                                @error('g-recaptcha-response')
+                                    <span class="invalid-feedback mx-auto text-center m-3" style="font-size:20px" role="alert">
+                                        <strong class="">{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
