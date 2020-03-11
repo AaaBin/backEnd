@@ -83,7 +83,7 @@
         <div class="media-container-row content text-white">
             <div class="col-12 col-md-3">
                 <div class="media-wrap">
-                    <a href="//">
+                    <a href="#">
                         <img src="{{asset('assets/images/logo2.png')}}" alt="Mobirise">
                     </a>
                 </div>
