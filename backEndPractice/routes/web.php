@@ -20,6 +20,12 @@ Route::get('/news/detail/{id}', 'FrontController@news_detail');  //前端，最�
 
 Route::get('/product', 'FrontController@product');  //前端，產品頁面
 
+Route::get('/contacts', 'FrontController@contact');  //前端，聯絡頁面
+Route::resource('/contact', 'ContactController');  //以resource產生的controller
+
+Route::get('/product_detail','FrontController@product_detail');  //product detail
+Route::get('/add_cart','FrontController@add_cart');
+
 
 Auth::routes();
 

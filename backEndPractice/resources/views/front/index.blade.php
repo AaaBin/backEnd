@@ -1,6 +1,8 @@
 @extends('layouts/nav')
-@section('content')
 
+
+
+@section('content')
 
 
 
@@ -15,7 +17,7 @@
         <div class="row justify-content-md-center">
             <div class="mbr-white col-md-10">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
-                    LANDING PAGE
+                    Laravel 後台實作練習
                 </h1>
                 <div class="mbr-section-btn">
                     <a class="btn btn-md btn-secondary display-4" href="/home">LOGIN</a>
@@ -41,10 +43,10 @@
             <div class="mbr-gallery-row">
                 <div class="mbr-gallery-layout-default">
                     <div>
-                        <div>
+                        <div class="">
                             <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="酷毙">
                                 <div href="#lb-gallery1-3" data-slide-to="0" data-toggle="modal"><img
-                                        src="assets/images/background1.jpg" alt="" title=""><span
+                                        src="assets/images/background1.webp" alt="" title=""><span
                                         class="icon-focus"></span></div>
                             </div>
                             <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="响应式">
@@ -86,7 +88,8 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-            </div><!-- Lightbox -->
+            </div>
+            <!-- Lightbox -->
             <div data-app-prevent-settings="" class="mbr-slider modal fade carousel slide" tabindex="-1"
                 data-keyboard="true" data-interval="false" id="lb-gallery1-3">
                 <div class="modal-dialog">

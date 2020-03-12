@@ -4,7 +4,10 @@
 
 
 
-    <div class="container pt-5">
+    <div class="container " style="padding-top:120px">
+
+        <h2>PRODUCT</h2>
+
         <div>
             <!-- Filter -->
             <div class="mbr-gallery-filter container gallery-filter-active">

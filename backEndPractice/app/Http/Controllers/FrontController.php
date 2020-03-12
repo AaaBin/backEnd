@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 // 略過model直接使用database
 use DB;
 use App\News;
+use App\Product;
+use Darryldecode\Cart\Cart;
+use Illuminate\Support\Facades\Auth;
 
 
 class FrontController extends Controller
@@ -38,14 +41,41 @@ class FrontController extends Controller
     }
 
 
-
-
-
-
     public function product()
     {
         $product_data = DB::table('product')->orderBy("sort",'desc')->get();
         return view('front/product', compact('product_data'));
+    }
+
+    public function contact()
+    {
+        return view('front/contact');
+    }
+
+    public function product_detail()
+    {
+        return view('front/product_detail');
+    }
+
+
+    public function add_cart()
+    {
+        $Product = Product::find(1); // assuming you have a Product model with id, name, description & price
+        $rowId = 456; // generate a unique() row ID
+        $userID = Auth::user()->id; // the user ID to bind the cart contents
+        dd($userID);
+        \Cart::session($userID)->add(array(
+            'id' => $rowId,
+            'name' => $Product->name,
+            'price' => $Product->price,
+            'quantity' => 4,
+            'attributes' => array(),
+            'associatedModel' => $Product
+        ));
+
+
+        $items = \Cart::session($userID)->getContent();
+        dd($items);
     }
 
 }

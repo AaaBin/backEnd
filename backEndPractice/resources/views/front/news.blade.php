@@ -2,6 +2,7 @@
 @section('content')
 <section class="engine"><a href="https://mobirise.info/x">css templates</a></section><section class="features3 cid-rRF3umTBWU" id="features3-7">
     <div class="container" style="padding:120px 0 0 0; min-height:100vh">
+        <h2>NEWS</h2>
         <div class="media-container-row flex-wrap ">
 
             {{-- 有資料送進來後可以將資料運用在頁面內容中 --}}

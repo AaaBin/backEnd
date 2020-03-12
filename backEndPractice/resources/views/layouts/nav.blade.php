@@ -22,8 +22,15 @@
   <link rel="stylesheet" href="{{asset('assets/gallery/style.css')}}">
   <link rel="preload" as="style" href="{{asset('assets/mobirise/css/mbr-additional.css')}}">
   <link rel="stylesheet" href="{{asset('assets/mobirise/css/mbr-additional.css')}}" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 
+    <style>
+        *{
+            font-family: 'Noto Sans TC', sans-serif !important;
+        }
+    </style>
     @yield('css')
+
 
 </head>
 <body>
@@ -43,13 +50,13 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white display-4" href="/">
-                        TEST
+                    <a class="navbar-caption text-white display-5" href="/">
+                        HOME PAGE
                     </a>
                     <a class="navbar-caption text-white display-4" href="/home" style='font-family:微軟正黑體; font-weight:200'>
                         後台管理
                     </a>
-                    <a class="navbar-caption text-white display-4" href="/test" style='font-family:微軟正黑體; font-weight:200'>
+                    <a class="navbar-caption text-white display-4" href="/product_detail" style='font-family:微軟正黑體; font-weight:200'>
                         TEST
                     </a>
                 </span>
@@ -67,6 +74,11 @@
                         PRODUCT
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/contacts">
+                        CONTACT
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -81,42 +93,6 @@
 
     <div class="container">
         <div class="media-container-row content text-white">
-            <div class="col-12 col-md-3">
-                <div class="media-wrap">
-                    <a href="#">
-                        <img src="{{asset('assets/images/logo2.png')}}" alt="Mobirise">
-                    </a>
-                </div>
-            </div>
-            <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                <h5 class="pb-3">
-                    Address
-                </h5>
-                <p class="mbr-text">
-                    1234 Street Name
-                    <br>City, AA 99999
-                </p>
-            </div>
-            <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                <h5 class="pb-3">
-                    Contacts
-                </h5>
-                <p class="mbr-text">
-                    Email: support@mobirise.com
-                    <br>Phone: +1 (0) 000 0000 001
-                    <br>Fax: +1 (0) 000 0000 002
-                </p>
-            </div>
-            <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                <h5 class="pb-3">
-                    Links
-                </h5>
-                <p class="mbr-text">
-                    <a class="text-primary" href="//">Website builder</a>
-                    <br><a class="text-primary" href="">Download for Windows</a>
-                    <br><a class="text-primary" href="">Download for Mac</a>
-                </p>
-            </div>
         </div>
         <div class="footer-lower">
             <div class="media-container-row">
