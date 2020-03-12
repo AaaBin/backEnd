@@ -7,6 +7,7 @@ use DB;
 use App\News;
 use App\Product;
 use Darryldecode\Cart\Cart;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -52,30 +53,47 @@ class FrontController extends Controller
         return view('front/contact');
     }
 
-    public function product_detail()
+
+
+    public function product_detail($productID)
     {
-        return view('front/product_detail');
+        $item = Product::find($productID);
+        return view('front/product_detail',compact('item'));
     }
 
 
-    public function add_cart()
+    public function add_cart(Request $request)
     {
-        $Product = Product::find(1); // assuming you have a Product model with id, name, description & price
+        $request_data = $request->all();
+        $Product = Product::find($request_data['productID']); // assuming you have a Product model with id, name, description & price
         $rowId = 456; // generate a unique() row ID
         $userID = Auth::user()->id; // the user ID to bind the cart contents
-        dd($userID);
+        \Cart::add(array(
+            'id' => 456, // inique row ID
+            'name' => 'Sample Item',
+            'price' => 67.99,
+            'quantity' => 4,
+            'attributes' => array()
+        ));
         \Cart::session($userID)->add(array(
             'id' => $rowId,
             'name' => $Product->name,
             'price' => $Product->price,
-            'quantity' => 4,
+            'quantity' => $request_data['qty'],
+            'capcity' => $request_data['capcity'],
+            'color' =>$request_data['color'],
             'attributes' => array(),
             'associatedModel' => $Product
         ));
 
+        return redirect('/shoppingcart');
+    }
 
-        $items = \Cart::session($userID)->getContent();
-        dd($items);
+    public function shoppingcart()
+    {
+        $id = Auth::user()->id;
+        $items = \Cart::session($id)->getContent();
+        return view('front/shopping_cart',compact('items'));
     }
 
 }

@@ -20,6 +20,7 @@ class CreateContacts extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('question');
+            $table->string('SendMeMail')->default("no");
 
             $table->timestamps();
         });

@@ -12,7 +12,7 @@
             <!-- Filter -->
             <div class="mbr-gallery-filter container gallery-filter-active">
                 <ul buttons="0">
-                    <li class="mbr-gallery-filter-all"><a class="btn btn-md btn-primary-outline active display-7"
+                    <li class="mbr-gallery-filter-all"><a class="btn btn-sm btn-info-outline active display-4"
                             href="">All</a>
                     </li>
                 </ul>
