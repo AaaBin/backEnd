@@ -66,7 +66,7 @@ class FrontController extends Controller
     {
         $request_data = $request->all();
         $Product = Product::find($request_data['productID']); // assuming you have a Product model with id, name, description & price
-        $rowId = 456; // generate a unique() row ID
+        $rowId = $Product->id; // generate a unique() row ID
         $userID = Auth::user()->id; // the user ID to bind the cart contents
 
         \Cart::session($userID)->add(array(
