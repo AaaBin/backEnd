@@ -9,7 +9,7 @@
 
     .Cart__header {
         display: grid;
-        grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 2px;
         margin-bottom: 2px;
     }
@@ -21,7 +21,7 @@
 
     .Cart__product {
         display: grid;
-        grid-template-columns: 2fr 7fr 3fr 3fr 3fr 3fr;
+        grid-template-columns: 2fr 7fr 3fr 3fr 3fr 3fr 3fr 3fr;
         grid-gap: 2px;
         margin-bottom: 2px;
     }
@@ -119,6 +119,8 @@
             <div class="Cart__headerGrid">商品</div>
             <div class="Cart__headerGrid">單價</div>
             <div class="Cart__headerGrid">數量</div>
+            <div class="Cart__headerGrid">顏色</div>
+            <div class="Cart__headerGrid">容量</div>
             <div class="Cart__headerGrid">小計</div>
             <div class="Cart__headerGrid">刪除</div>
         </div>
@@ -133,6 +135,12 @@
             </div>
             <div class="Cart__productGrid Cart__productQuantity">
                 {{$item->quantity}}
+            </div>
+            <div class="Cart__productGrid Cart__productQuantity">
+                {{$item->attributes->color}}
+            </div>
+            <div class="Cart__productGrid Cart__productQuantity">
+                {{$item->attributes->capcity}}
             </div>
             <div class="Cart__productGrid Cart__productTotal">
                 {{$item->price * $item->quantity}}

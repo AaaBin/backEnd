@@ -169,7 +169,7 @@
                 <input class="qty_input" value="1" name="qty" hidden>
                 <input class="capcity_input" value="64GB" name="capcity" hidden>
                 <input class="color_input" value="RED" name="color" hidden>
-                <button type="submit" class="submit_btn btn btn-outline-success btn-sm">Submit</button>
+                <button type="submit" class="submit_btn btn btn-outline-dark btn-sm">Submit</button>
             </form>
         </div>
     </div>

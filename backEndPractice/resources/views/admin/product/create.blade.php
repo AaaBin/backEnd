@@ -22,11 +22,11 @@
             {{-- required屬性確保表單有填入資料時才可送出 --}}
         </div>
         <div class="form-group">
-            <label for="name">drink name</label>
+            <label for="name">item name</label>
             <input  class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="price">drink price</label>
+            <label for="price">item price</label>
             <input type="number" min="0" class="form-control" id="price" name="price" required>
         </div>
         <div class="form-group">

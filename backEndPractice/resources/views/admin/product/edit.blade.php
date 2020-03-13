@@ -23,11 +23,11 @@
         <input type="file" class="form-control" id="url" name="url">
         </div>
         <div class="form-group">
-            <label for="name">drink name</label>
+            <label for="name">item name</label>
             <input  class="form-control" id="name" name="name" value="{{$product->name}}" required>
         </div>
         <div class="form-group">
-            <label for="price">drink price</label>
+            <label for="price">item price</label>
             <input type="number" min="0" class="form-control" id="price" name="price" value="{{$product->price}}" required>
         </div>
         <div class="form-group">

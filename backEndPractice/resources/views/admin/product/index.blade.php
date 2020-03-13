@@ -22,7 +22,7 @@
         <thead>
             <tr>
                 <th>img</th>
-                <th>drink name</th>
+                <th>item name</th>
                 <th>category</th>
                 <th>price</th>
                 <th>權重</th>

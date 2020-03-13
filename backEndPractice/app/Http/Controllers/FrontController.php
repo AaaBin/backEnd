@@ -68,21 +68,18 @@ class FrontController extends Controller
         $Product = Product::find($request_data['productID']); // assuming you have a Product model with id, name, description & price
         $rowId = 456; // generate a unique() row ID
         $userID = Auth::user()->id; // the user ID to bind the cart contents
-        \Cart::add(array(
-            'id' => 456, // inique row ID
-            'name' => 'Sample Item',
-            'price' => 67.99,
-            'quantity' => 4,
-            'attributes' => array()
-        ));
+
         \Cart::session($userID)->add(array(
             'id' => $rowId,
             'name' => $Product->name,
             'price' => $Product->price,
             'quantity' => $request_data['qty'],
-            'capcity' => $request_data['capcity'],
-            'color' =>$request_data['color'],
-            'attributes' => array(),
+
+            'attributes' => array(
+                'color' =>$request_data['color'],
+                'capcity' => $request_data['capcity'],
+            ),
+
             'associatedModel' => $Product
         ));
 
@@ -93,6 +90,7 @@ class FrontController extends Controller
     {
         $id = Auth::user()->id;
         $items = \Cart::session($id)->getContent();
+
         return view('front/shopping_cart',compact('items'));
     }
 
