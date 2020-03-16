@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 // 略過model直接使用database
-use DB;
 use App\News;
 use App\Product;
 use Darryldecode\Cart\Cart;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 
 class FrontController extends Controller
 {
@@ -22,7 +21,7 @@ class FrontController extends Controller
     {
         // 從DB中拿資料須建立成變數
         // 並使用get()
-        $news_data = DB::table('news')->orderBy("sort",'desc')->get();
+        $news_data = DB::table('news')->orderBy("sort", 'desc')->get();
         // orderBy:根據資料欄位排序
 
         // 然後用compact()將資料傳入頁面中
@@ -35,16 +34,14 @@ class FrontController extends Controller
         // 方法二:在view頁面中也可以使用關聯的function
         $item = News::find($id);
 
-
         // 方法三:with('functionname')  會將關連的子資料夾帶進主資料中，多形成一個欄位
-        $item2 = News::with('news_imgs')->find($id)->orderBy("sort",'desc');
-        return view('front/news_detail' , compact('item','item2'));
+        $item2 = News::with('news_imgs')->find($id)->orderBy("sort", 'desc');
+        return view('front/news_detail', compact('item', 'item2'));
     }
-
 
     public function product()
     {
-        $product_data = DB::table('product')->orderBy("sort",'desc')->get();
+        $product_data = DB::table('product')->orderBy("sort", 'desc')->get();
         return view('front/product', compact('product_data'));
     }
 
@@ -53,14 +50,11 @@ class FrontController extends Controller
         return view('front/contact');
     }
 
-
-
     public function product_detail($productID)
     {
         $item = Product::find($productID);
-        return view('front/product_detail',compact('item'));
+        return view('front/product_detail', compact('item'));
     }
-
 
     public function add_cart(Request $request)
     {
@@ -76,11 +70,11 @@ class FrontController extends Controller
             'quantity' => $request_data['qty'],
 
             'attributes' => array(
-                'color' =>$request_data['color'],
+                'color' => $request_data['color'],
                 'capcity' => $request_data['capcity'],
             ),
 
-            'associatedModel' => $Product
+            'associatedModel' => $Product,
         ));
 
         return redirect('/shoppingcart');
@@ -88,10 +82,15 @@ class FrontController extends Controller
 
     public function shoppingcart()
     {
-        $id = Auth::user()->id;
-        $items = \Cart::session($id)->getContent();
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+            $items = \Cart::session($id)->getContent();
 
-        return view('front/shopping_cart',compact('items'));
+            return view('front/shopping_cart', compact('items'));
+        } else {
+            return redirect('/');
+        }
+
     }
 
 }

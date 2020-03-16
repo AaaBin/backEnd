@@ -25,7 +25,7 @@ Route::resource('/contact', 'ContactController');  //以resource產生的control
 
 Route::get('/product_detail/{productID}','FrontController@product_detail');  //product detail
 Route::post('/add_cart','FrontController@add_cart');   //加入購物車功能
-Route::get('/shoppingcart','FrontController@shoppingcart');   //加入購物車功能
+Route::get('/shoppingcart','FrontController@shoppingcart');   //購物車page
 
 Auth::routes();
 
