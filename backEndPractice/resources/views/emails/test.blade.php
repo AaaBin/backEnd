@@ -2,23 +2,21 @@
 
 
 <table>
-    <tr>
-        <td>
+        <tr>
             {{$contact_data->name}}contact us
-        </td>
-        <td>
+        </tr>
+        <tr>
             content:{{$contact_data->question}}
-        </td>
-        <td>
-            email:{{$contact_data->email}}
-        </td>
-        <td>
+        </tr>
+        <tr>
+            {{$contact_data->email}}
+        </tr>
+        <tr>
             phone:{{$contact_data->phone}}
-        </td>
-        <td>
+        </tr>
+        <tr>
             SendMeMail:{{$contact_data->SendMeMail}}
-        </td>
-    </tr>
+        </tr>
 </table>
 
 
