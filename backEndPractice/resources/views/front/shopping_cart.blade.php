@@ -113,7 +113,6 @@
 @section('content')
 <div class="container">
     <div class="Cart">
-        {{$items}}
 
         <div class="Cart__header">
             <div class="Cart__headerGrid">商品</div>

@@ -53,6 +53,12 @@
                                 <a class="dropdown-item" href="/product" >
                                     product
                                 </a>
+                                <a class="dropdown-item" href="/contacts" >
+                                    contacts
+                                </a>
+                                <a class="dropdown-item" href="/shoppingcart" >
+                                    shoppingcart
+                                </a>
                             </div>
                         </li>
 
@@ -74,6 +80,12 @@
                                     產品類別
                                 </a>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home/contact">聯絡訊息</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home/order_list">訂單列表</a>
                         </li>
 
                     </ul>

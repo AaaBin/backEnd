@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Contacts;
-use App\Mail\SendTestMail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+class OrderListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact_datas = Contacts::all();
-        return view('admin/contact/index', compact('contact_datas'));
+        return view('admin/order/index');
     }
 
     /**
@@ -38,12 +34,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $request_data = $request->all();
-        $contact_data = Contacts::create($request_data);
 
-        Mail::to('birnie1571@gmail.com')->send(new SendTestMail($contact_data));  //寄信通知管理員有人填寫連絡表單
-
-        return redirect('/');
     }
 
     /**
@@ -88,10 +79,6 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $item = Contacts::find($id); //找到正在執行動作的是哪一筆資料
-        $item->delete(); //刪除資料
 
-        return redirect("/home/contact");
     }
-
 }

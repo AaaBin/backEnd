@@ -21,7 +21,8 @@ Route::get('/news/detail/{id}', 'FrontController@news_detail');  //前端，最�
 Route::get('/product', 'FrontController@product');  //前端，產品頁面
 
 Route::get('/contacts', 'FrontController@contact');  //前端，聯絡頁面
-Route::resource('/contact', 'ContactController');  //以resource產生的controller
+Route::post('/contact', 'ContactController@store'); //前台點選送出時的儲存route
+
 
 Route::get('/product_detail/{productID}','FrontController@product_detail');  //product detail
 Route::post('/add_cart','FrontController@add_cart');   //加入購物車功能
@@ -30,7 +31,6 @@ Route::get('/shoppingcart','FrontController@shoppingcart');   //購物車page
 Auth::routes();
 
 
-Route::get('/send-mail', 'HomeController@sendMail'); //發郵件測試用
 
 // middleware:中介層  ->代表這路徑要經過認證才可使用
 // prefix:前綴字
@@ -93,6 +93,13 @@ Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
     Route::post('/news/ajax_delete_img', 'summernoteUploadImg@ajax_delete_img');  //summernote upload img
 
 
+    // contact
+    Route::get('/contact', 'ContactController@index'); //contact後台index page
+
+    Route::post('/contact/delete/{id}', 'ContactController@destroy'); //刪除
+
+    // 訂單列表
+    Route::get('/order_list', 'OrderListController@index'); //後台index page
 
 
 });
