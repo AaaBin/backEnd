@@ -17,7 +17,7 @@ class CreateOrderDetails extends Migration
             $table->bigIncrements('id');
             $table->integer('order_id');
             $table->string('product_id');
-
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

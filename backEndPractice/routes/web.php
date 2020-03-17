@@ -28,6 +28,7 @@ Route::get('/product_detail/{productID}','FrontController@product_detail');  //p
 Route::post('/add_cart','FrontController@add_cart');   //加入購物車功能
 Route::get('/shoppingcart','FrontController@shoppingcart');   //購物車page
 Route::post('/update_cart/{productID}','FrontController@update');   //修改數量
+Route::post('/delete_item/{productID}','FrontController@deleteItem');   //修改數量
 Route::post('/checkout','FrontController@checkout');   //成立訂單
 
 

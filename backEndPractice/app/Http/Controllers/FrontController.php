@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use DB;
 use App\News;
 use App\Order;
+use App\Order_detail;
 use App\Product;
+use Carbon\Carbon;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,9 +87,9 @@ class FrontController extends Controller
     {
         if (Auth::user()) {
             $id = Auth::user()->id;
-            $items = \Cart::session($id)->getContent();
+            $items = \Cart::session($id)->getContent()->sort();
 
-            return view('front/shopping_cart', compact('items'));
+            return view('front/shopping_cart', compact('items','id'));
         } else {
             return redirect('/');
         }
@@ -95,10 +97,20 @@ class FrontController extends Controller
     }
 
 
-    public function update()
+    public function update(Request $request,$productID)
     {
-
-
+        $request_data = $request->all();
+        $id = Auth::user()->id;
+        \Cart::session($id)->update($productID, array(
+            'quantity' => $request_data['qty'],
+          ));
+        //   return [$request_data,$id,$productID];
+    }
+    public function deleteItem($productID)
+    {
+        $id = Auth::user()->id;
+        \Cart::session($id)->remove($productID);
+        return "success";
     }
 
     public function checkout(Request $request)
@@ -106,16 +118,29 @@ class FrontController extends Controller
         $id = Auth::user()->id;
         $request_data = $request->all();
         $items = \Cart::session($id)->getContent();
-
+        $current_time = Carbon::now();  //current time
+        // store data into order
         $order_data = new Order;
         $order_data->user_id = $id;
-        $order_data->recipient_name = $request_data->recipient_name;
-        $order_data->recipient_phone = $request_data->recipient_phone;
-        $order_data->recipient_address = $request_data->recipient_address;
-        $order_data->recipient_email = $request_data->recipient_email;
+        $order_data->recipient_name = $request_data['recipient_name'];
+        $order_data->recipient_phone = $request_data['recipient_phone'];
+        $order_data->recipient_address = $request_data['recipient_address'];
+        $order_data->recipient_email = $request_data['recipient_email'];
+        $order_data->total_price =\Cart::session($id)->getTotal() + 150;
+        $order_data->order_time =$current_time;
+        $order_data->payment_status = "no";
+        $order_data->send_status ="no";
+        $order_data->save();
+        $order_id = $order_data->id;
 
-
-
+        // store data into order_detail
+        foreach ($items as $key => $item) {
+            $order_detail_data = new Order_detail;
+            $order_detail_data->order_id = $order_id;
+            $order_detail_data->product_id = $item['id'];
+            $order_detail_data->quantity = $item['quantity'];
+            $order_detail_data->save();
+        }
     }
 
 }

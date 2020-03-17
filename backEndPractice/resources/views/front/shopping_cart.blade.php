@@ -21,11 +21,12 @@
 
     .Cart__product {
         display: grid;
-        grid-template-columns: 2fr 7fr 3fr 3fr 3fr 3fr 3fr 3fr;
+        grid-template-columns: 5fr 4fr 3fr 3fr 3fr 3fr 3fr 3fr;
         grid-gap: 2px;
         margin-bottom: 2px;
     }
-    .Cart__price_info{
+
+    .Cart__price_info {
         display: grid;
         grid-template-columns: 7fr 3fr;
         grid-gap: 2px;
@@ -37,7 +38,7 @@
     }
 
     .Cart__productImg {
-        background-image: url(https://fakeimg.pl/640x480/c0cfe8/?text=Img);
+        /* background-image: url(https://fakeimg.pl/640x480/c0cfe8/?text=Img); */
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -130,8 +131,9 @@
             <div class="Cart__headerGrid">刪除</div>
         </div>
         @foreach ($items as $item)
-        <div class="Cart__product">
+        <div class="Cart__product" data-rowId="{{$item->id}}">
             <div class="Cart__productGrid Cart__productImg">
+                <img src="/storage/{{$item->associatedModel->url}}" alt="" style="width:100%;">
             </div>
             <div class="Cart__productGrid Cart__productTitle">
                 {{$item->name}}
@@ -140,9 +142,9 @@
                 {{$item->price}}
             </div>
             <div class="Cart__productGrid Cart__productQuantity">
-                <span class="btn btn-sm p-1 btn-primary" onclick="minus_item({{$item->id}})">-</span>
+                <span class="btn btn-sm p-1 btn-primary m-0" onclick="minus_item({{$item->id}})">-</span>
                 <span class="qty">{{$item->quantity}}</span>
-                <span class="btn btn-sm p-1 btn-primary" onclick="add_item({{$item->id}})">+</span>
+                <span class="btn btn-sm p-1 btn-primary m-0" onclick="plus_item({{$item->id}})">+</span>
             </div>
             <div class="Cart__productGrid Cart__productQuantity">
                 {{$item->attributes->color}}
@@ -153,15 +155,15 @@
             <div class="Cart__productGrid Cart__productTotal">
                 {{$item->price * $item->quantity}}
             </div>
-            <div class="Cart__productGrid btn btn-sm p-1 btn-secondary">X</div>
+            <div class="Cart__productGrid btn btn-sm p-1" onclick="delete_item({{$item->id}})">X</div>
         </div>
         @endforeach
         <div class="Cart__price_info">
             <div class="box"></div>
-            <div class="box">
-                <div class="p-1">product price: {{\Cart::getTotal()}} $</div>
-            <div class="p-1 ">shipment price: 150 $</div>
-            <div class="p-1 ">Total price: {{\Cart::getTotal() + 150}} $</div>
+            <div class="pricing_box">
+                <div class="p-1">product price: {{\Cart::session($id)->getTotal()}} $</div>
+                <div class="p-1 ">shipment price: 150 $</div>
+                <div class="p-1 ">Total price: {{\Cart::session($id)->getTotal() + 150}} $</div>
             </div>
         </div>
 
@@ -207,6 +209,27 @@
     });
 </script>
 <script>
+    function delete_item(productID){
+        var r=confirm("do you really want to delete this item?");
+        if (r==true)
+        {
+            $.ajax({
+                type:"POST",
+                url:`/delete_item/${productID}`,
+                data:{},
+                success:function(result){
+                    console.log(result);
+                    $(`div[data-rowId=${productID}]`)[0].remove();
+                    location.reload();
+                }
+            });
+        }
+        else
+        {
+        }
+    }
+
+
     function minus_item(productID){
             $.ajax({
             type:"POST",
@@ -214,22 +237,24 @@
             // 送出的值為id
             data:{qty:-1},
             success:function(result){
-                console.log("123456789");
+                console.log(result);
 
+                location.reload();
             }
             });
     }
 
 
-    function add_item(productID){
+    function plus_item(productID){
             $.ajax({
             type:"POST",
             url:`/update_cart/${productID}`,
             // 送出的值為id
             data:{qty:1},
             success:function(result){
-                console.log("987654321");
+                console.log(result);
 
+                location.reload();
             }
             });
     }

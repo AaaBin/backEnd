@@ -106,12 +106,13 @@
 
 <div class="shopping_cart_container container">
     <h2>Product Info</h2>
-    <div class="row">
-        <div class="col-6">
+    <div class="row ">
+        <div class="col-8 bg-info rounded">
+            <img src="/storage/{{$item->url}}" alt="" style="width:100%;padding:30px 20px">
         </div>
 
 
-        <div class="product_info_area col-6 px-3 py-5">
+        <div class="product_info_area col-4 px-3 py-5 rounded">
             <div class="top_info">
                 <div class="top_info_title">
                     {{$item->name}}
