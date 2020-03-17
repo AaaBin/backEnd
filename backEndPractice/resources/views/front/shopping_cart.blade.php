@@ -25,6 +25,12 @@
         grid-gap: 2px;
         margin-bottom: 2px;
     }
+    .Cart__price_info{
+        display: grid;
+        grid-template-columns: 7fr 3fr;
+        grid-gap: 2px;
+        margin-bottom: 2px;
+    }
 
     .Cart__productGrid {
         padding: 5px;
@@ -112,8 +118,8 @@
 
 @section('content')
 <div class="container">
-    <div class="Cart">
-
+    <div class="Cart d-flex flex-column">
+        <h2>Shopping Cart</h2>
         <div class="Cart__header">
             <div class="Cart__headerGrid">商品</div>
             <div class="Cart__headerGrid">單價</div>
@@ -125,7 +131,8 @@
         </div>
         @foreach ($items as $item)
         <div class="Cart__product">
-            <div class="Cart__productGrid Cart__productImg"></div>
+            <div class="Cart__productGrid Cart__productImg">
+            </div>
             <div class="Cart__productGrid Cart__productTitle">
                 {{$item->name}}
             </div>
@@ -133,7 +140,9 @@
                 {{$item->price}}
             </div>
             <div class="Cart__productGrid Cart__productQuantity">
-                {{$item->quantity}}
+                <span class="btn btn-sm p-1 btn-primary" onclick="minus_item({{$item->id}})">-</span>
+                <span class="qty">{{$item->quantity}}</span>
+                <span class="btn btn-sm p-1 btn-primary" onclick="add_item({{$item->id}})">+</span>
             </div>
             <div class="Cart__productGrid Cart__productQuantity">
                 {{$item->attributes->color}}
@@ -144,9 +153,45 @@
             <div class="Cart__productGrid Cart__productTotal">
                 {{$item->price * $item->quantity}}
             </div>
-            <div class="Cart__productGrid Cart__productDel">&times;</div>
+            <div class="Cart__productGrid btn btn-sm p-1 btn-secondary">X</div>
         </div>
         @endforeach
+        <div class="Cart__price_info">
+            <div class="box"></div>
+            <div class="box">
+                <div class="p-1">product price: {{\Cart::getTotal()}} $</div>
+            <div class="p-1 ">shipment price: 150 $</div>
+            <div class="p-1 ">Total price: {{\Cart::getTotal() + 150}} $</div>
+            </div>
+        </div>
+
+
+
+
+        <form method="POST" class="recipient_form pt-5 mt-5" action="/checkout">
+            @csrf
+            <h3>recipient info</h3>
+            <div class="form-group ">
+                <label class="p-1" for="recipient_name">Recipient Name:</label>
+                <input id="recipient_name" class="form-control" type="text" name="recipient_name">
+            </div>
+            <div class="form-group ">
+                <label class="p-1" for="recipient_phone">Recipient_Phone:</label>
+                <input id="recipient_phone" class="form-control" type="text" name="recipient_phone">
+            </div>
+            <div class="form-group ">
+                <label class="p-1" for="recipient_email">Recipient_Email:</label>
+                <input id="recipient_email" class="form-control" type="text" name="recipient_email">
+            </div>
+            <div class="form-group ">
+                <label class="p-1" for="recipient_address">Recipient_Address:</label>
+                <input id="recipient_address" class="form-control" type="text" name="recipient_address">
+            </div>
+            <button class="btn btn-primary btn-sm m-5 px-5">結帳</button>
+        </form>
+
+
+
 
     </div>
 </div>
@@ -154,6 +199,42 @@
 
 
 @section('js')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script>
+    function minus_item(productID){
+            $.ajax({
+            type:"POST",
+            url:`/update_cart/${productID}`,
+            // 送出的值為id
+            data:{qty:-1},
+            success:function(result){
+                console.log("123456789");
+
+            }
+            });
+    }
+
+
+    function add_item(productID){
+            $.ajax({
+            type:"POST",
+            url:`/update_cart/${productID}`,
+            // 送出的值為id
+            data:{qty:1},
+            success:function(result){
+                console.log("987654321");
+
+            }
+            });
+    }
+</script>
+
 
 
 @endsection

@@ -27,6 +27,9 @@ Route::post('/contact', 'ContactController@store'); //前台點選送出時的�
 Route::get('/product_detail/{productID}','FrontController@product_detail');  //product detail
 Route::post('/add_cart','FrontController@add_cart');   //加入購物車功能
 Route::get('/shoppingcart','FrontController@shoppingcart');   //購物車page
+Route::post('/update_cart/{productID}','FrontController@update');   //修改數量
+Route::post('/checkout','FrontController@checkout');   //成立訂單
+
 
 Auth::routes();
 

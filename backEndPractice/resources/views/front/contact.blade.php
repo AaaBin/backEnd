@@ -30,7 +30,7 @@
         </div>
         <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" name="SendMeMail" >
-          <label class="form-check-label" for="exampleCheck1" >send me email when the question is solved</label>
+          <label class="form-check-label" for="exampleCheck1" >Send me email when the question is solved</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 // 略過model直接使用database
+use DB;
 use App\News;
+use App\Order;
 use App\Product;
 use Darryldecode\Cart\Cart;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +91,30 @@ class FrontController extends Controller
         } else {
             return redirect('/');
         }
+
+    }
+
+
+    public function update()
+    {
+
+
+    }
+
+    public function checkout(Request $request)
+    {
+        $id = Auth::user()->id;
+        $request_data = $request->all();
+        $items = \Cart::session($id)->getContent();
+
+        $order_data = new Order;
+        $order_data->user_id = $id;
+        $order_data->recipient_name = $request_data->recipient_name;
+        $order_data->recipient_phone = $request_data->recipient_phone;
+        $order_data->recipient_address = $request_data->recipient_address;
+        $order_data->recipient_email = $request_data->recipient_email;
+
+
 
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contacts;
 use App\Mail\SendTestMail;
+use App\Mail\sendToCustomer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -42,7 +43,7 @@ class ContactController extends Controller
         $contact_data = Contacts::create($request_data);
 
         Mail::to('birnie1571@gmail.com')->send(new SendTestMail($contact_data));  //寄信通知管理員有人填寫連絡表單
-
+        Mail::to($contact_data->email)->send(new sendToCustomer($contact_data));  //寄信通知填表單者我們已收到消息
         return redirect('/');
     }
 

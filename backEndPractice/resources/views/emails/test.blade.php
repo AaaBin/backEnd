@@ -3,7 +3,7 @@
 
 <table>
         <tr>
-            {{$contact_data->name}}contact us
+            Customer: '{{$contact_data->name}}' contact us
         </tr>
         <tr>
             content:{{$contact_data->question}}

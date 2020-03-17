@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="{{asset('assets/mobirise/css/mbr-additional.css')}}" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 
+{{-- csrf token --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <style>
         *{
             font-family: 'Noto Sans TC', sans-serif !important;

@@ -4,11 +4,11 @@ namespace App\Mail;
 
 use App\Contacts;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendTestMail extends Mailable
+class sendToCustomer extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,6 +29,6 @@ class SendTestMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.test')->with(['contact_data'=>  $this->content,]);
+        return $this->markdown('emails.send_to_customer');
     }
 }
