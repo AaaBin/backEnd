@@ -12,9 +12,8 @@
 */
 
 // permission test
-Route::get('/adminPermission', 'FrontController@adminPermission');
+Route::get('/createRoleAndPermission', 'FrontController@createRoleAndPermission');
 Route::get('/permission/assignRole', 'FrontController@assignRole');
-Route::get('/permission/getname', 'FrontController@getPermissionName');
 
 
 
@@ -39,6 +38,14 @@ Route::post('/update_cart/{productID}','FrontController@update');   //修改數�
 Route::post('/delete_item/{productID}','FrontController@deleteItem');   //修改數量
 Route::post('/checkout','FrontController@checkout');   //成立訂單
 
+Route::prefix('cart_ecpay')->group(function(){
+
+    //當消費者付款完成後，綠界會將付款結果參數以幕後(Server POST)回傳到該網址。
+    Route::post('notify', 'FrontController@notifyUrl')->name('notify');
+
+    //付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址
+    Route::post('return', 'FrontController@returnUrl')->name('return');
+});
 
 Auth::routes();
 
@@ -46,7 +53,7 @@ Auth::routes();
 
 // middleware:中介層  ->代表這路徑要經過認證才可使用
 // prefix:前綴字
-Route::group(['middleware' => ['auth'], 'prefix' =>'/home'], function () {
+Route::group(['middleware' => ['auth','RoleMiddleWare'], 'prefix' =>'/home'], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
 

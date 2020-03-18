@@ -6,42 +6,46 @@ namespace App\Http\Controllers;
 use DB;
 use App\News;
 use App\Order;
-use App\Order_detail;
 use App\Product;
 use Carbon\Carbon;
+use App\Order_detail;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use TsaiYiHua\ECPay\Checkout;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use TsaiYiHua\ECPay\Services\StringService;
+
 
 class FrontController extends Controller
 {
-    // permission test
-    public function adminPermission()
+    protected $checkout;
+
+    public function __construct(Checkout $checkout)
     {
-        $admin_role = Role::create(['name' => 'admin']);
-        $admin_permission = Permission::create(['name' => 'do every thing']);
-        $admin_role->givePermissionTo($admin_permission);
+        $this->checkout = $checkout;
     }
-    public function NormalPermission()
+
+
+
+
+    // permission test
+    public function createRoleAndPermission()
     {
-        $normal_role = Role::create(['name' => 'normal_user']);
+        $admin_role = Role::create(['name' => 'admin']); //建立role:admin
+        $admin_permission = Permission::create(['name' => 'do every thing']);  //建立permission
+        $admin_role->givePermissionTo($admin_permission); //將role與permission關聯
+
+        $normal_role = Role::create(['name' => 'normal_user']); //建立role:normal
         $normal_permission = Permission::create(['name' => 'a normal user']);
         $normal_role->givePermissionTo($normal_permission);
     }
     public function assignRole()
     {
-        $user = Auth::user();
+        $user = Auth::user(); //將現在使用者套用上admin這一role
         $user->assignRole('admin');
     }
-    public function getPermissionName()
-    {
-        $user = Auth::user();
-        $RoleNames = $user->getRoleNames();
-        dd($RoleNames);
-    }
-
 
 
 
@@ -147,13 +151,15 @@ class FrontController extends Controller
         $id = Auth::user()->id;
         $request_data = $request->all();
         $items = \Cart::session($id)->getContent();
-        $current_time = Carbon::now();  //current time
+        $current_time = Carbon::now()->format('mdY');  //current time
         if (\Cart::session($id)->getTotal() > 1200) {
             $shipment_price = 0;
         } else {
             $shipment_price = 150;
         }
         // store data into order
+        //依照資料表的欄位將資料填入並儲存，注意!有關價錢的部分要從Cart套件甚至是後端的資料庫中拿取
+        //才不會有從前台被竄改資料的可能
         $order_data = new Order;
         $order_data->user_id = $id;
         $order_data->recipient_name = $request_data['recipient_name'];
@@ -167,6 +173,10 @@ class FrontController extends Controller
         $order_data->save();
         $order_id = $order_data->id;
 
+        $order_data->order_no = "AaaBin".$current_time.$order_id; //產生訂單編號，要是唯一值
+        $order_data->save();
+        $OrderId = $order_data->order_no;
+        $product_details = [];  //建立一個空array，準備要填入訂單中的詳細物品清單，以傳給ECPay
         // store data into order_detail
         foreach ($items as $key => $item) {
             $order_detail_data = new Order_detail;
@@ -175,6 +185,78 @@ class FrontController extends Controller
             $order_detail_data->price = $item['price'];
             $order_detail_data->quantity = $item['quantity'];
             $order_detail_data->save();
+            $product_data = Product::find($order_detail_data->product_id);
+
+            $product_detail = [   //傳給ECPay的型態要是二維陣列
+                'name' => $product_data->name,
+                'qty' => $order_detail_data->quantity,
+                'unit' => '個',
+                'price' => $order_detail_data->price
+            ];
+            array_push($product_details,$product_detail); //用array push的方式將資料填入array
+        }
+        // 運費的資料也要傳入訂單中，才會計算進total price
+        if ($shipment_price == 0) {
+            $shipment_detail = [
+                'name' =>"shipment price",
+                'qty' => 0,
+                'unit' => '筆',
+                'price' =>$shipment_price
+            ];
+        } else {
+            $shipment_detail = [
+                'name' =>"shipment price",
+                'qty' => 1,
+                'unit' => '筆',
+                'price' =>$shipment_price
+            ];
+        }
+        array_push($product_details,$shipment_detail); //將運費項目加進array
+
+        $formData = [
+            'UserId' => 1, // 用戶ID , Optional
+            'ItemDescription' => '產品簡介',
+            'OrderId' => $OrderId,
+            'Items' => $product_details,
+            // 'ItemName' => 'Product Name',
+            // 'TotalAmount' => '2000',
+            'PaymentMethod' => 'Credit', // ALL, Credit, ATM, WebATM
+        ];
+
+        \Cart::session($id)->clear();  //清空購物車
+
+        return $this->checkout->setNotifyUrl(route('notify'))->setReturnUrl(route('return'))->setPostData($formData)->send();
+    }
+
+    public function notifyUrl(Request $request){
+        $serverPost = $request->post();
+        $checkMacValue = $request->post('CheckMacValue');
+        unset($serverPost['CheckMacValue']);
+        $checkCode = StringService::checkMacValueGenerator($serverPost);
+        if ($checkMacValue == $checkCode) {
+            return '1|OK';
+        } else {
+            return '0|FAIL';
+        }
+    }
+    public function returnUrl(Request $request){
+        $serverPost = $request->post();
+        $checkMacValue = $request->post('CheckMacValue');
+        unset($serverPost['CheckMacValue']);
+        $checkCode = StringService::checkMacValueGenerator($serverPost);
+        if ($checkMacValue == $checkCode) {
+            if (!empty($request->input('redirect'))) {
+                return redirect($request->input('redirect'));
+            } else {
+
+                //付款完成，下面接下來要將購物車訂單狀態改為已付款
+
+                $order_no = $serverPost["MerchantTradeNo"];
+                $order = Order::where('order_no',$order_no)->first();
+                $order->payment_status = "已完成";
+                $order->save();
+                return "555";
+            }
         }
     }
 

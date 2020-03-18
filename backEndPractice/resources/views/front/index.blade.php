@@ -21,6 +21,11 @@
                 </h1>
                 <div class="mbr-section-btn">
                     <a class="btn btn-md btn-secondary display-4" href="/home">LOGIN</a>
+                    <a class="btn btn-md btn-secondary display-4" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">LOGOUT</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
