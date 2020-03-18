@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  >
+<html  lang="zh-TW">
 <head>
   <!-- Site made with Mobirise Website Builder v4.12.1, / -->
   <meta charset="UTF-8">

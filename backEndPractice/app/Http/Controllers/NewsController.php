@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\News;
 use App\News_img;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller

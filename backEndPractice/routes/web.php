@@ -11,6 +11,14 @@
 |
 */
 
+// permission test
+Route::get('/adminPermission', 'FrontController@adminPermission');
+Route::get('/permission/assignRole', 'FrontController@assignRole');
+Route::get('/permission/getname', 'FrontController@getPermissionName');
+
+
+
+
 // 將路徑改寫成經過controller
 // FrontController@news  -->> 使用FrontController中的news函式
 Route::get('/', 'FrontController@index');  //前端，首頁

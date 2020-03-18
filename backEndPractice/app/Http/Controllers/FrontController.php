@@ -12,9 +12,38 @@ use Carbon\Carbon;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class FrontController extends Controller
 {
+    // permission test
+    public function adminPermission()
+    {
+        $admin_role = Role::create(['name' => 'admin']);
+        $admin_permission = Permission::create(['name' => 'do every thing']);
+        $admin_role->givePermissionTo($admin_permission);
+    }
+    public function NormalPermission()
+    {
+        $normal_role = Role::create(['name' => 'normal_user']);
+        $normal_permission = Permission::create(['name' => 'a normal user']);
+        $normal_role->givePermissionTo($normal_permission);
+    }
+    public function assignRole()
+    {
+        $user = Auth::user();
+        $user->assignRole('admin');
+    }
+    public function getPermissionName()
+    {
+        $user = Auth::user();
+        $RoleNames = $user->getRoleNames();
+        dd($RoleNames);
+    }
+
+
+
 
     public function index()
     {
@@ -119,6 +148,11 @@ class FrontController extends Controller
         $request_data = $request->all();
         $items = \Cart::session($id)->getContent();
         $current_time = Carbon::now();  //current time
+        if (\Cart::session($id)->getTotal() > 1200) {
+            $shipment_price = 0;
+        } else {
+            $shipment_price = 150;
+        }
         // store data into order
         $order_data = new Order;
         $order_data->user_id = $id;
@@ -126,7 +160,7 @@ class FrontController extends Controller
         $order_data->recipient_phone = $request_data['recipient_phone'];
         $order_data->recipient_address = $request_data['recipient_address'];
         $order_data->recipient_email = $request_data['recipient_email'];
-        $order_data->total_price =\Cart::session($id)->getTotal() + 150;
+        $order_data->total_price =\Cart::session($id)->getTotal() + $shipment_price;
         $order_data->order_time =$current_time;
         $order_data->payment_status = "no";
         $order_data->send_status ="no";
@@ -138,9 +172,11 @@ class FrontController extends Controller
             $order_detail_data = new Order_detail;
             $order_detail_data->order_id = $order_id;
             $order_detail_data->product_id = $item['id'];
+            $order_detail_data->price = $item['price'];
             $order_detail_data->quantity = $item['quantity'];
             $order_detail_data->save();
         }
     }
+
 
 }

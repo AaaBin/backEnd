@@ -21,6 +21,13 @@
 
                     You are logged in!
                 </div>
+                <div class="card-body">
+                    <?php
+                    $user = Auth::user();
+                    $RoleNames = $user->getRoleNames();
+                    ?>
+                    your role:{{$RoleNames}}
+                </div>
             </div>
         </div>
     </div>

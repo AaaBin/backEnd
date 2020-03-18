@@ -155,16 +155,29 @@
             <div class="Cart__productGrid Cart__productTotal">
                 {{$item->price * $item->quantity}}
             </div>
-            <div class="Cart__productGrid btn btn-sm p-1" onclick="delete_item({{$item->id}})">X</div>
+            <div class="Cart__productGrid text-center" >
+                <div class="btn btn-danger p-2" onclick="delete_item({{$item->id}})">X</div>
+            </div>
         </div>
         @endforeach
-        <div class="Cart__price_info">
+        <div class="Cart__price_info mb-3">
             <div class="box"></div>
             <div class="pricing_box">
+                <?php
+                    if (\Cart::session($id)->getTotal() > 1200) {
+                        $shipment_price = 0;
+                    } else {
+                        $shipment_price = 150;
+                    }
+
+                ?>
                 <div class="p-1">product price: {{\Cart::session($id)->getTotal()}} $</div>
-                <div class="p-1 ">shipment price: 150 $</div>
-                <div class="p-1 ">Total price: {{\Cart::session($id)->getTotal() + 150}} $</div>
+                <div class="p-1 ">shipment price{{$shipment_price}}$</div>
+                <div class="p-1 ">Total price: {{\Cart::session($id)->getTotal() + $shipment_price}} $</div>
             </div>
+        </div>
+        <div class="text-center">
+            <a href="/product" class="btn btn-primary btn-sm">繼續購物</a>
         </div>
 
 
@@ -178,18 +191,20 @@
                 <input id="recipient_name" class="form-control" type="text" name="recipient_name">
             </div>
             <div class="form-group ">
-                <label class="p-1" for="recipient_phone">Recipient_Phone:</label>
+                <label class="p-1" for="recipient_phone">Recipient Phone:</label>
                 <input id="recipient_phone" class="form-control" type="text" name="recipient_phone">
             </div>
             <div class="form-group ">
-                <label class="p-1" for="recipient_email">Recipient_Email:</label>
+                <label class="p-1" for="recipient_email">Recipient Email:</label>
                 <input id="recipient_email" class="form-control" type="text" name="recipient_email">
             </div>
             <div class="form-group ">
-                <label class="p-1" for="recipient_address">Recipient_Address:</label>
+                <label class="p-1" for="recipient_address">Recipient Address:</label>
                 <input id="recipient_address" class="form-control" type="text" name="recipient_address">
             </div>
-            <button class="btn btn-primary btn-sm m-5 px-5">結帳</button>
+            <div class="text-center">
+                <button class="btn btn-primary btn-sm m-5 px-5">結帳</button>
+            </div>
         </form>
 
 
