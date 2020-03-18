@@ -30,7 +30,6 @@ Route::get('/product', 'FrontController@product');  //前端，產品頁面
 Route::get('/contacts', 'FrontController@contact');  //前端，聯絡頁面
 Route::post('/contact', 'ContactController@store'); //前台點選送出時的儲存route
 
-
 Route::get('/product_detail/{productID}','FrontController@product_detail');  //product detail
 Route::post('/add_cart','FrontController@add_cart');   //加入購物車功能
 Route::get('/shoppingcart','FrontController@shoppingcart');   //購物車page
@@ -46,6 +45,8 @@ Route::prefix('cart_ecpay')->group(function(){
     //付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址
     Route::post('return', 'FrontController@returnUrl')->name('return');
 });
+
+Route::get('/account','FrontController@account');
 
 Auth::routes();
 

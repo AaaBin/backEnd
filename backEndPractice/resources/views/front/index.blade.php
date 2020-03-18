@@ -19,6 +19,13 @@
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
                     Laravel 後台實作練習
                 </h1>
+                @if (session('status'))
+                    <div class="text-center">
+                        <h3 class="text-light bg-primary p-3 rounded">
+                            {{ session('status') }}
+                        </h3>
+                    </div>
+                @endif
                 <div class="mbr-section-btn">
                     <a class="btn btn-md btn-secondary display-4" href="/home">LOGIN</a>
                     <a class="btn btn-md btn-secondary display-4" href="{{ route('logout') }}" onclick="event.preventDefault();

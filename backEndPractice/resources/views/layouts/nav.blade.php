@@ -84,7 +84,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/shoppingcart">
-                        SHOPPINGCART
+                        <?php
+
+                        if (Auth::user()) {
+                            $user_id = Auth::user()->id;
+                            $cart_items_qty = \Cart::session($user_id)->getContent()->count();
+                        } else {
+                            $cart_items_qty = 0;
+                        };
+                        ?>
+                        SHOPPINGCART({{$cart_items_qty}})
                     </a>
                 </li>
             </ul>

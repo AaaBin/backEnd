@@ -94,26 +94,32 @@ class FrontController extends Controller
 
     public function add_cart(Request $request)
     {
-        $request_data = $request->all();
-        $Product = Product::find($request_data['productID']); // assuming you have a Product model with id, name, description & price
-        $rowId = $Product->id; // generate a unique() row ID
-        $userID = Auth::user()->id; // the user ID to bind the cart contents
+        if (Auth::user()) {
+            $request_data = $request->all();
+            $Product = Product::find($request_data['productID']); // assuming you have a Product model with id, name, description & price
+            $rowId = $Product->id; // generate a unique() row ID
+            $userID = Auth::user()->id; // the user ID to bind the cart contents
 
-        \Cart::session($userID)->add(array(
-            'id' => $rowId,
-            'name' => $Product->name,
-            'price' => $Product->price,
-            'quantity' => $request_data['qty'],
+            \Cart::session($userID)->add(array(
+                'id' => $rowId,
+                'name' => $Product->name,
+                'price' => $Product->price,
+                'quantity' => $request_data['qty'],
 
-            'attributes' => array(
-                'color' => $request_data['color'],
-                'capcity' => $request_data['capcity'],
-            ),
+                'attributes' => array(
+                    'color' => $request_data['color'],
+                    'capcity' => $request_data['capcity'],
+                ),
 
-            'associatedModel' => $Product,
-        ));
+                'associatedModel' => $Product,
+            ));
 
-        return redirect('/shoppingcart');
+            return redirect('/shoppingcart');
+        } else {
+            return redirect('/')->with('status','not login yet');
+        }
+
+
     }
 
     public function shoppingcart()
@@ -124,7 +130,7 @@ class FrontController extends Controller
 
             return view('front/shopping_cart', compact('items','id'));
         } else {
-            return redirect('/');
+            return redirect('/')->with('status','not login yet');
         }
 
     }
@@ -151,7 +157,7 @@ class FrontController extends Controller
         $id = Auth::user()->id;
         $request_data = $request->all();
         $items = \Cart::session($id)->getContent();
-        $current_time = Carbon::now()->format('mdY');  //current time
+        $current_time = Carbon::now()->format('mdYhis');  //current time
         if (\Cart::session($id)->getTotal() > 1200) {
             $shipment_price = 0;
         } else {
@@ -173,7 +179,7 @@ class FrontController extends Controller
         $order_data->save();
         $order_id = $order_data->id;
 
-        $order_data->order_no = "AaaBin".$current_time.$order_id; //產生訂單編號，要是唯一值
+        $order_data->order_no = "A".$current_time.$order_id; //產生訂單編號，要是唯一值
         $order_data->save();
         $OrderId = $order_data->order_no;
         $product_details = [];  //建立一個空array，準備要填入訂單中的詳細物品清單，以傳給ECPay
@@ -255,9 +261,16 @@ class FrontController extends Controller
                 $order = Order::where('order_no',$order_no)->first();
                 $order->payment_status = "已完成";
                 $order->save();
-                return "555";
+                return redirect('/account');
             }
         }
+    }
+
+    public function account()
+    {
+        $user = Auth::user();
+        $order_datas = Order::where('user_id',$user->id)->get();
+        return view('front/account',compact('user','order_datas'));
     }
 
 

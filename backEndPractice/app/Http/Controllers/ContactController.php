@@ -95,4 +95,7 @@ class ContactController extends Controller
         return redirect("/home/contact");
     }
 
+
+    
+
 }
