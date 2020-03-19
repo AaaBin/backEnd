@@ -40,24 +40,24 @@
                         </h3>
                     </div>
                 @endif
-                <div class="mbr-section-btn">
+                {{-- <div class="mbr-section-btn">
                     <a class="btn btn-md btn-secondary display-4" href="/home">LOGIN</a>
                     <a class="btn btn-md btn-secondary display-4" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">LOGOUT</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
-    <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
+    {{-- <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
         <a href="#next">
             <i style="left:13px" class="mbri-down mbr-iconfont"></i>
         </a>
-    </div>
+    </div> --}}
 </section>
-
+{{--
 <section class="mbr-gallery mbr-slider-carousel cid-rRF176nNHj" id="gallery1-3">
 
 
@@ -203,7 +203,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 @endsection
 

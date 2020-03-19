@@ -12,7 +12,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">最新消息</li>
+            <li class="breadcrumb-item active" aria-current="page">聯絡資訊</li>
         </ol>
     </nav>
     <a href="/home/news/create" class="btn btn-success">新增最新消息</a>

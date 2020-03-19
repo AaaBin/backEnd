@@ -47,6 +47,11 @@ class FrontController extends Controller
     //     $user->assignRole('admin');
     // }
 
+    // 測試用
+    public function test()
+    {
+        return view('front/test');
+    }
 
 
     public function index()
