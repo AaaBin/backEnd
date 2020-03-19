@@ -12,8 +12,8 @@
 */
 
 // permission test
-Route::get('/createRoleAndPermission', 'FrontController@createRoleAndPermission');
-Route::get('/permission/assignRole', 'FrontController@assignRole');
+// Route::get('/createRoleAndPermission', 'FrontController@createRoleAndPermission');
+// Route::get('/permission/assignRole', 'FrontController@assignRole');
 
 
 

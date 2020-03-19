@@ -31,21 +31,21 @@ class FrontController extends Controller
 
 
     // permission test
-    public function createRoleAndPermission()
-    {
-        $admin_role = Role::create(['name' => 'admin']); //建立role:admin
-        $admin_permission = Permission::create(['name' => 'do every thing']);  //建立permission
-        $admin_role->givePermissionTo($admin_permission); //將role與permission關聯
+    // public function createRoleAndPermission()
+    // {
+    //     $admin_role = Role::create(['name' => 'admin']); //建立role:admin
+    //     $admin_permission = Permission::create(['name' => 'do every thing']);  //建立permission
+    //     $admin_role->givePermissionTo($admin_permission); //將role與permission關聯
 
-        $normal_role = Role::create(['name' => 'normal_user']); //建立role:normal
-        $normal_permission = Permission::create(['name' => 'a normal user']);
-        $normal_role->givePermissionTo($normal_permission);
-    }
-    public function assignRole()
-    {
-        $user = Auth::user(); //將現在使用者套用上admin這一role
-        $user->assignRole('admin');
-    }
+    //     $normal_role = Role::create(['name' => 'normal_user']); //建立role:normal
+    //     $normal_permission = Permission::create(['name' => 'a normal user']);
+    //     $normal_role->givePermissionTo($normal_permission);
+    // }
+    // public function assignRole()
+    // {
+    //     $user = Auth::user(); //將現在使用者套用上admin這一role
+    //     $user->assignRole('admin');
+    // }
 
 
 

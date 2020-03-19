@@ -17,10 +17,10 @@ class RoleMiddleWare
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if ($user->hasRole('admin')) {
+        if ($user->role == 'admin') {
             return $next($request);
         }else{
-            return redirect('/');
+            return redirect('/')->with('message','you are not a admin');
         }
     }
 }

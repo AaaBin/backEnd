@@ -21,8 +21,22 @@
                 </h1>
                 @if (session('status'))
                     <div class="text-center">
-                        <h3 class="text-light bg-primary p-3 rounded">
+                        <h3 class="text-secondary p-3 rounded">
                             {{ session('status') }}
+                        </h3>
+                    </div>
+                @endif
+                @if (session('message'))
+                    <div class="text-center">
+                        <h3 class="text-secondary p-3 rounded">
+                            {{ session('message') }}
+                        </h3>
+                    </div>
+                @endif
+                @if (session('hello'))
+                    <div class="text-center">
+                        <h3 class="text-secondary p-3 rounded">
+                            {{ session('hello') }}
                         </h3>
                     </div>
                 @endif

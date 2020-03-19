@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <?php
                     $user = Auth::user();
-                    $RoleNames = $user->getRoleNames();
+                    $RoleNames = $user->role;
                     ?>
                     your role:{{$RoleNames}}
                 </div>

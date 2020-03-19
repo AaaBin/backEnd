@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 
 class LoginController extends Controller
@@ -68,4 +69,17 @@ class LoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+
+    //用public finction複寫authenticated，讓登入後的路徑可以分流
+    public function authenticated( $user)
+    {
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            return redirect('/home');
+        }else{
+            return redirect('/');
+        }
+    }
+
+
 }

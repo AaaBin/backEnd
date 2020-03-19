@@ -13,7 +13,7 @@
         <p>User Name : {{$user->name}}</p>
     </div>
     <div class="row pl-3">
-        <p>User Role : {{$user->getRoleNames()}}</p>
+        <p>User Role : {{$user->role}}</p>
     </div>
     <div class="row p-3">
         <p>Order :</p>
