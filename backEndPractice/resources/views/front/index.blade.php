@@ -6,7 +6,7 @@
 
 
 
-<section class="engine"><a href="https://mobirise.info/g">build a website for free</a></section>
+{{-- <section class="engine"><a href="https://mobirise.info/g">build a website for free</a></section> --}}
 <section class="cid-qTkA127IK8 mbr-fullscreen mbr-parallax-background" id="header2-1">
 
 
@@ -17,7 +17,7 @@
         <div class="row justify-content-md-center">
             <div class="mbr-white col-md-10">
                 <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
-                    Laravel 後台實作練習
+                    AaaBin Backend
                 </h1>
                 @if (session('status'))
                     <div class="text-center">
@@ -40,23 +40,25 @@
                         </h3>
                     </div>
                 @endif
-                {{-- <div class="mbr-section-btn">
-                    <a class="btn btn-md btn-secondary display-4" href="/home">LOGIN</a>
-                    <a class="btn btn-md btn-secondary display-4" href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">LOGOUT</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div> --}}
+
             </div>
         </div>
     </div>
-    {{-- <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
-        <a href="#next">
-            <i style="left:13px" class="mbri-down mbr-iconfont"></i>
-        </a>
-    </div> --}}
+
 </section>
+
+
+@endsection
+
+@section('js')
+@endsection
+
+
+
+
+
+
+
 {{--
 <section class="mbr-gallery mbr-slider-carousel cid-rRF176nNHj" id="gallery1-3">
 
@@ -204,8 +206,3 @@
         </div>
     </div>
 </section> --}}
-
-@endsection
-
-@section('js')
-@endsection

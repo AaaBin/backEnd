@@ -53,9 +53,8 @@
                         <div class="form-group row justify-content-center ">
 
                             {!! htmlFormSnippet() !!}
-                            <input type="" class="form-control justify-content-center @error('g-recaptcha-response') is-invalid @enderror" style="display:none">
                                 @error('g-recaptcha-response')
-                                    <span class="invalid-feedback mx-auto text-center m-3" style="font-size:20px" role="alert">
+                                    <span class="mx-auto text-center m-3" style="font-size:20px" role="alert">
                                         <strong class="">{{ $message }}</strong>
                                     </span>
                                 @enderror

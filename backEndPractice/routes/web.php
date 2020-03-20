@@ -18,40 +18,39 @@
 // test route
 Route::get('/test','FrontController@test');
 
+// 一般訪客登入頁面
+Route::get('/login_guest','FrontController@login_guest');
 
 
 // 將路徑改寫成經過controller
 // FrontController@news  -->> 使用FrontController中的news函式
 Route::get('/', 'FrontController@index');  //前端，首頁
-
 Route::get('/news', 'FrontController@news');  //前端，最新消息頁，list apge
 Route::get('/news/detail/{id}', 'FrontController@news_detail');  //前端，最新消息頁，content apge
-
 Route::get('/product', 'FrontController@product');  //前端，產品頁面
-
 Route::get('/contacts', 'FrontController@contact');  //前端，聯絡頁面
-Route::post('/contact', 'ContactController@store'); //前台點選送出時的儲存route
-
-Route::get('/product_detail/{productID}','FrontController@product_detail');  //product detail
-Route::post('/add_cart','FrontController@add_cart');   //加入購物車功能
 Route::get('/shoppingcart','FrontController@shoppingcart');   //購物車page
-Route::post('/update_cart/{productID}','FrontController@update');   //修改數量
-Route::post('/delete_item/{productID}','FrontController@deleteItem');   //修改數量
-Route::post('/checkout','FrontController@checkout');   //成立訂單
+Route::get('/account','FrontController@account');  //account page
+Route::get('/product_detail/{productID}','FrontController@product_detail');  //product detail
 
-Route::prefix('cart_ecpay')->group(function(){
+Route::post('/contact', 'ContactController@store'); //前端，聯絡頁面表單送出時的儲存route
 
+// Cart
+Route::post('/add_cart','CartController@add_cart');   //加入購物車功能
+Route::post('/update_cart/{productID}','CartController@update');   //修改數量
+Route::post('/delete_item/{productID}','CartController@deleteItem');   //刪除物品
+Route::post('/checkout','CartController@checkout');   //成立訂單
+
+Route::prefix('cart_ecpay')->group(function()
+{
     //當消費者付款完成後，綠界會將付款結果參數以幕後(Server POST)回傳到該網址。
-    Route::post('notify', 'FrontController@notifyUrl')->name('notify');
-
+    Route::post('notify', 'CartController@notifyUrl')->name('notify');
     //付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址
-    Route::post('return', 'FrontController@returnUrl')->name('return');
+    Route::post('return', 'CartController@returnUrl')->name('return');
 });
 
-Route::get('/account','FrontController@account');
 
 Auth::routes();
-
 
 
 // middleware:中介層  ->代表這路徑要經過認證才可使用

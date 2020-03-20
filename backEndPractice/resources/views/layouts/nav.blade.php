@@ -24,7 +24,7 @@
     <link rel="preload" as="style" href="{{asset('assets/mobirise/css/mbr-additional.css')}}">
     <link rel="stylesheet" href="{{asset('assets/mobirise/css/mbr-additional.css')}}" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-
+    {!! ReCaptcha::htmlScriptTagJsApi() !!}
 
     {{-- csrf token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,6 +44,10 @@
 
         .cid-qTkzRZLJNu .dropdown-item {
             color: rgb(233, 233, 233) !important;
+        }
+
+        .cid-qTkzRZLJNu .dropdown-item:hover {
+            color: red !important;
         }
     </style>
     @yield('css')
@@ -72,7 +76,7 @@
                 <div class="navbar-brand">
                     <span class="navbar-caption-wrap">
                         <a class="navbar-caption text-white display-5" href="/">
-                            HOME PAGE
+                            AaaBin
                         </a>
                         <a class="navbar-caption text-white display-4" href="/home"
                             style='font-family:微軟正黑體; font-weight:200'>
@@ -136,13 +140,14 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="/account">
+                                My Account
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            <a class="dropdown-item" href="/account">
-                                My Account
-                            </a>
+
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

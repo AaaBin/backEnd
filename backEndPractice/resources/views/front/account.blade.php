@@ -15,7 +15,7 @@
 
 
 @section('content')
-<div class="container " style="padding:100px 0 0 0">
+<div class="container " style="padding:120px 0 ;min-height:100vh;">
     <h2>Account</h2>
     <div class="row pl-3">
         <p>User Name : {{$user->name}}</p>
@@ -38,7 +38,6 @@
                 <th>Total Price</th>
                 <th>Payment Status</th>
                 <th>Send Status</th>
-                <th>pay</th>
 
             </tr>
         </thead>
@@ -54,9 +53,6 @@
                 <td>{{$order_data->total_price}}</td>
                 <td>{{$order_data->payment_status}}</td>
                 <td>{{$order_data->send_status}}</td>
-                <td>
-                    <a href="" class="btn btn-primary p-1">→</a>
-                </td>
             </tr>
             @endforeach
         </tbody>
